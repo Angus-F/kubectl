@@ -32,24 +32,24 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/runtime/serializer"
 	utilruntime "k8s.io/apimachinery/pkg/util/runtime"
-	"k8s.io/cli-runtime/pkg/genericclioptions"
-	"k8s.io/cli-runtime/pkg/resource"
-	"k8s.io/client-go/discovery"
-	diskcached "k8s.io/client-go/discovery/cached/disk"
-	"k8s.io/client-go/dynamic"
-	fakedynamic "k8s.io/client-go/dynamic/fake"
-	"k8s.io/client-go/kubernetes"
-	restclient "k8s.io/client-go/rest"
-	"k8s.io/client-go/rest/fake"
-	"k8s.io/client-go/restmapper"
-	scaleclient "k8s.io/client-go/scale"
-	"k8s.io/client-go/tools/clientcmd"
-	clientcmdapi "k8s.io/client-go/tools/clientcmd/api"
-	cmdutil "k8s.io/kubectl/pkg/cmd/util"
-	"k8s.io/kubectl/pkg/scheme"
-	"k8s.io/kubectl/pkg/util/openapi"
-	openapitesting "k8s.io/kubectl/pkg/util/openapi/testing"
-	"k8s.io/kubectl/pkg/validation"
+	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
+	"github.com/Angus-F/cli-runtime/pkg/resource"
+	"github.com/Angus-F/client-go/discovery"
+	diskcached "github.com/Angus-F/client-go/discovery/cached/disk"
+	"github.com/Angus-F/client-go/dynamic"
+	fakedynamic "github.com/Angus-F/client-go/dynamic/fake"
+	"github.com/Angus-F/client-go/kubernetes"
+	restclient "github.com/Angus-F/client-go/rest"
+	"github.com/Angus-F/client-go/rest/fake"
+	"github.com/Angus-F/client-go/restmapper"
+	scaleclient "github.com/Angus-F/client-go/scale"
+	"github.com/Angus-F/client-go/tools/clientcmd"
+	clientcmdapi "github.com/Angus-F/client-go/tools/clientcmd/api"
+	cmdutil "github.com/Angus-F/kubectl/pkg/cmd/util"
+	"github.com/Angus-F/kubectl/pkg/scheme"
+	"github.com/Angus-F/kubectl/pkg/util/openapi"
+	openapitesting "github.com/Angus-F/kubectl/pkg/util/openapi/testing"
+	"github.com/Angus-F/kubectl/pkg/validation"
 
 	openapi_v2 "github.com/googleapis/gnostic/openapiv2"
 )
@@ -565,7 +565,6 @@ func (f *TestFactory) KubernetesClientSet() (*kubernetes.Clientset, error) {
 	clientset.AppsV1beta2().RESTClient().(*restclient.RESTClient).Client = fakeClient.Client
 	clientset.AppsV1().RESTClient().(*restclient.RESTClient).Client = fakeClient.Client
 	clientset.PolicyV1beta1().RESTClient().(*restclient.RESTClient).Client = fakeClient.Client
-	clientset.PolicyV1().RESTClient().(*restclient.RESTClient).Client = fakeClient.Client
 	clientset.DiscoveryClient.RESTClient().(*restclient.RESTClient).Client = fakeClient.Client
 
 	return clientset, nil
@@ -810,4 +809,15 @@ func testDynamicResources() []*restmapper.APIGroupResources {
 			},
 		},
 	}
+}
+
+func (f *TestFactory)SetClientConfig(clientConfig *clientcmd.ClientConfig) {
+
+}
+func (f *TestFactory)GetConfigFlags() *genericclioptions.ConfigFlags {
+	return nil
+}
+
+func (f *TestFactory)NewClientConfigFromBytesWithConfigFlags(configBytes []byte) (clientcmd.ClientConfig, error) {
+	return nil, nil
 }

@@ -23,12 +23,12 @@ import (
 
 	"k8s.io/apimachinery/pkg/api/meta"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"k8s.io/client-go/discovery"
-	"k8s.io/client-go/rest"
-	"k8s.io/client-go/tools/clientcmd"
-	"k8s.io/kubectl/pkg/scheme"
+	"github.com/Angus-F/client-go/discovery"
+	"github.com/Angus-F/client-go/rest"
+	"github.com/Angus-F/client-go/tools/clientcmd"
+	"github.com/Angus-F/kubectl/pkg/scheme"
 
-	"k8s.io/cli-runtime/pkg/genericclioptions"
+	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
 	"k8s.io/component-base/version"
 )
 
@@ -126,4 +126,16 @@ func setKubernetesDefaults(config *rest.Config) error {
 		config.NegotiatedSerializer = scheme.Codecs.WithoutConversion()
 	}
 	return rest.SetKubernetesDefaults(config)
+}
+
+func (f *MatchVersionFlags)SetClientConfig(clientConfig *clientcmd.ClientConfig) {
+	f.Delegate.SetClientConfig(clientConfig)
+}
+
+func (f *MatchVersionFlags)GetConfigFlags() *genericclioptions.ConfigFlags {
+	return f.Delegate.GetConfigFlags()
+}
+
+func (f *MatchVersionFlags)NewClientConfigFromBytesWithConfigFlags(configBytes []byte) (clientcmd.ClientConfig, error) {
+	return f.Delegate.NewClientConfigFromBytesWithConfigFlags(configBytes)
 }

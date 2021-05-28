@@ -37,12 +37,12 @@ import (
 	utilerrors "k8s.io/apimachinery/pkg/util/errors"
 	"k8s.io/apimachinery/pkg/util/sets"
 	"k8s.io/apimachinery/pkg/util/yaml"
-	"k8s.io/cli-runtime/pkg/genericclioptions"
-	"k8s.io/cli-runtime/pkg/resource"
-	"k8s.io/client-go/dynamic"
-	"k8s.io/client-go/rest"
-	"k8s.io/client-go/scale"
-	"k8s.io/client-go/tools/clientcmd"
+	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
+	"github.com/Angus-F/cli-runtime/pkg/resource"
+	"github.com/Angus-F/client-go/dynamic"
+	"github.com/Angus-F/client-go/rest"
+	"github.com/Angus-F/client-go/scale"
+	"github.com/Angus-F/client-go/tools/clientcmd"
 	"k8s.io/klog/v2"
 	utilexec "k8s.io/utils/exec"
 )
@@ -438,7 +438,9 @@ func AddFieldManagerFlagVar(cmd *cobra.Command, p *string, defaultFieldManager s
 func AddContainerVarFlags(cmd *cobra.Command, p *string, containerName string) {
 	cmd.Flags().StringVarP(p, "container", "c", containerName, "Container name. If omitted, use the kubectl.kubernetes.io/default-container annotation for selecting the container to be attached or the first container in the pod will be chosen")
 }
-
+func AddClusterVarFlags(cmd *cobra.Command, p *string, clusterName string) {
+	cmd.Flags().StringVarP(p, "clusterName", "C", clusterName, "choose the specific cluster to exec the command")
+}
 func AddServerSideApplyFlags(cmd *cobra.Command) {
 	cmd.Flags().Bool("server-side", false, "If true, apply runs in the server instead of the client.")
 	cmd.Flags().Bool("force-conflicts", false, "If true, server-side apply will force the changes against conflicts.")
@@ -454,6 +456,14 @@ func AddApplyAnnotationFlags(cmd *cobra.Command) {
 
 func AddApplyAnnotationVarFlags(cmd *cobra.Command, applyAnnotation *bool) {
 	cmd.Flags().BoolVar(applyAnnotation, ApplyAnnotationsFlag, *applyAnnotation, "If true, the configuration of current object will be saved in its annotation. Otherwise, the annotation will be unchanged. This flag is useful when you want to perform kubectl apply on this object in the future.")
+}
+
+// AddGeneratorFlags adds flags common to resource generation commands
+// TODO: need to take a pass at other generator commands to use this set of flags
+func AddGeneratorFlags(cmd *cobra.Command, defaultGenerator string) {
+	cmd.Flags().String("generator", defaultGenerator, "The name of the API generator to use.")
+	cmd.Flags().MarkDeprecated("generator", "has no effect and will be removed in the future.")
+	AddDryRunFlag(cmd)
 }
 
 func AddChunkSizeFlag(cmd *cobra.Command, value *int64) {
