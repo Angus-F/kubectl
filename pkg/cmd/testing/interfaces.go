@@ -18,7 +18,7 @@ package testing
 
 import (
 	"k8s.io/apimachinery/pkg/types"
-	client "k8s.io/client-go/rest"
+	client "github.com/Angus-F/client-go/rest"
 )
 
 // RESTClient is a client helper for dealing with RESTful resources

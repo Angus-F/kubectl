@@ -28,7 +28,7 @@ import (
 	"testing"
 
 	"k8s.io/apimachinery/pkg/util/proxy"
-	"k8s.io/client-go/rest"
+	"github.com/Angus-F/client-go/rest"
 )
 
 func TestAccept(t *testing.T) {

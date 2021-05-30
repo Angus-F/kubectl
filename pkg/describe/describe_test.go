@@ -44,8 +44,8 @@ import (
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/util/intstr"
-	"k8s.io/client-go/kubernetes"
-	"k8s.io/client-go/kubernetes/fake"
+	"github.com/Angus-F/client-go/kubernetes"
+	"github.com/Angus-F/client-go/kubernetes/fake"
 	utilpointer "k8s.io/utils/pointer"
 )
 

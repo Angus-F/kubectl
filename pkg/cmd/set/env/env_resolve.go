@@ -30,7 +30,7 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/util/sets"
 	"k8s.io/apimachinery/pkg/util/validation"
-	"k8s.io/client-go/kubernetes"
+	"github.com/Angus-F/client-go/kubernetes"
 )
 
 // ResourceStore defines a new resource store data structure.

@@ -23,8 +23,8 @@ import (
 	"reflect"
 	"testing"
 
-	"k8s.io/cli-runtime/pkg/genericclioptions"
-	cmdutil "k8s.io/kubectl/pkg/cmd/util"
+	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
+	cmdutil "github.com/Angus-F/kubectl/pkg/cmd/util"
 )
 
 func TestNormalizationFuncGlobalExistence(t *testing.T) {

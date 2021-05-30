@@ -22,11 +22,11 @@ import (
 	"testing"
 
 	corev1 "k8s.io/api/core/v1"
-	"k8s.io/cli-runtime/pkg/genericclioptions"
-	"k8s.io/cli-runtime/pkg/resource"
-	"k8s.io/client-go/rest/fake"
-	cmdtesting "k8s.io/kubectl/pkg/cmd/testing"
-	"k8s.io/kubectl/pkg/scheme"
+	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
+	"github.com/Angus-F/cli-runtime/pkg/resource"
+	"github.com/Angus-F/client-go/rest/fake"
+	cmdtesting "github.com/Angus-F/kubectl/pkg/cmd/testing"
+	"github.com/Angus-F/kubectl/pkg/scheme"
 )
 
 func TestReplaceObject(t *testing.T) {

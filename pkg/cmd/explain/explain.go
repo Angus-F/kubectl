@@ -23,12 +23,12 @@ import (
 
 	"k8s.io/apimachinery/pkg/api/meta"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"k8s.io/cli-runtime/pkg/genericclioptions"
-	cmdutil "k8s.io/kubectl/pkg/cmd/util"
-	"k8s.io/kubectl/pkg/explain"
-	"k8s.io/kubectl/pkg/util/i18n"
-	"k8s.io/kubectl/pkg/util/openapi"
-	"k8s.io/kubectl/pkg/util/templates"
+	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
+	cmdutil "github.com/Angus-F/kubectl/pkg/cmd/util"
+	"github.com/Angus-F/kubectl/pkg/explain"
+	"github.com/Angus-F/kubectl/pkg/util/i18n"
+	"github.com/Angus-F/kubectl/pkg/util/openapi"
+	"github.com/Angus-F/kubectl/pkg/util/templates"
 )
 
 var (

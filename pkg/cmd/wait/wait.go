@@ -35,14 +35,14 @@ import (
 	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/apimachinery/pkg/util/wait"
 	"k8s.io/apimachinery/pkg/watch"
-	"k8s.io/cli-runtime/pkg/genericclioptions"
-	"k8s.io/cli-runtime/pkg/printers"
-	"k8s.io/cli-runtime/pkg/resource"
-	"k8s.io/client-go/dynamic"
-	watchtools "k8s.io/client-go/tools/watch"
-	cmdutil "k8s.io/kubectl/pkg/cmd/util"
-	"k8s.io/kubectl/pkg/util/i18n"
-	"k8s.io/kubectl/pkg/util/templates"
+	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
+	"github.com/Angus-F/cli-runtime/pkg/printers"
+	"github.com/Angus-F/cli-runtime/pkg/resource"
+	"github.com/Angus-F/client-go/dynamic"
+	watchtools "github.com/Angus-F/client-go/tools/watch"
+	cmdutil "github.com/Angus-F/kubectl/pkg/cmd/util"
+	"github.com/Angus-F/kubectl/pkg/util/i18n"
+	"github.com/Angus-F/kubectl/pkg/util/templates"
 )
 
 var (

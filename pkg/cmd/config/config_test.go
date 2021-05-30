@@ -27,10 +27,10 @@ import (
 
 	apiequality "k8s.io/apimachinery/pkg/api/equality"
 	"k8s.io/apimachinery/pkg/util/diff"
-	"k8s.io/cli-runtime/pkg/genericclioptions"
-	"k8s.io/client-go/tools/clientcmd"
-	clientcmdapi "k8s.io/client-go/tools/clientcmd/api"
-	cmdutil "k8s.io/kubectl/pkg/cmd/util"
+	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
+	"github.com/Angus-F/client-go/tools/clientcmd"
+	clientcmdapi "github.com/Angus-F/client-go/tools/clientcmd/api"
+	cmdutil "github.com/Angus-F/kubectl/pkg/cmd/util"
 )
 
 func newRedFederalCowHammerConfig() clientcmdapi.Config {

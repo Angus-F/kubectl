@@ -30,9 +30,9 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/util/diff"
-	fakeexternal "k8s.io/client-go/kubernetes/fake"
-	testclient "k8s.io/client-go/testing"
-	"k8s.io/kubectl/pkg/cmd/util/podcmd"
+	fakeexternal "github.com/Angus-F/client-go/kubernetes/fake"
+	testclient "github.com/Angus-F/client-go/testing"
+	"github.com/Angus-F/kubectl/pkg/cmd/util/podcmd"
 )
 
 var (

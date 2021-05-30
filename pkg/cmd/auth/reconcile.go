@@ -27,15 +27,15 @@ import (
 	rbacv1 "k8s.io/api/rbac/v1"
 	rbacv1alpha1 "k8s.io/api/rbac/v1alpha1"
 	rbacv1beta1 "k8s.io/api/rbac/v1beta1"
-	"k8s.io/cli-runtime/pkg/genericclioptions"
-	"k8s.io/cli-runtime/pkg/printers"
-	"k8s.io/cli-runtime/pkg/resource"
-	corev1client "k8s.io/client-go/kubernetes/typed/core/v1"
-	rbacv1client "k8s.io/client-go/kubernetes/typed/rbac/v1"
+	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
+	"github.com/Angus-F/cli-runtime/pkg/printers"
+	"github.com/Angus-F/cli-runtime/pkg/resource"
+	corev1client "github.com/Angus-F/client-go/kubernetes/typed/core/v1"
+	rbacv1client "github.com/Angus-F/client-go/kubernetes/typed/rbac/v1"
 	"k8s.io/component-helpers/auth/rbac/reconciliation"
-	cmdutil "k8s.io/kubectl/pkg/cmd/util"
-	"k8s.io/kubectl/pkg/scheme"
-	"k8s.io/kubectl/pkg/util/templates"
+	cmdutil "github.com/Angus-F/kubectl/pkg/cmd/util"
+	"github.com/Angus-F/kubectl/pkg/scheme"
+	"github.com/Angus-F/kubectl/pkg/util/templates"
 )
 
 // ReconcileOptions is the start of the data required to perform the operation.  As new fields are added, add them here instead of

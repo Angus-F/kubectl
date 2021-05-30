@@ -26,8 +26,8 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/util/validation"
-	cmdutil "k8s.io/kubectl/pkg/cmd/util"
-	"k8s.io/kubectl/pkg/generate"
+	cmdutil "github.com/Angus-F/kubectl/pkg/cmd/util"
+	"github.com/Angus-F/kubectl/pkg/generate"
 )
 
 // getLabels returns map of labels.

@@ -34,14 +34,14 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/util/intstr"
-	"k8s.io/cli-runtime/pkg/genericclioptions"
-	restclient "k8s.io/client-go/rest"
-	"k8s.io/client-go/rest/fake"
-	"k8s.io/kubectl/pkg/cmd/delete"
-	cmdtesting "k8s.io/kubectl/pkg/cmd/testing"
-	cmdutil "k8s.io/kubectl/pkg/cmd/util"
-	"k8s.io/kubectl/pkg/scheme"
-	"k8s.io/kubectl/pkg/util/i18n"
+	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
+	restclient "github.com/Angus-F/client-go/rest"
+	"github.com/Angus-F/client-go/rest/fake"
+	"github.com/Angus-F/kubectl/pkg/cmd/delete"
+	cmdtesting "github.com/Angus-F/kubectl/pkg/cmd/testing"
+	cmdutil "github.com/Angus-F/kubectl/pkg/cmd/util"
+	"github.com/Angus-F/kubectl/pkg/scheme"
+	"github.com/Angus-F/kubectl/pkg/util/i18n"
 )
 
 func TestGetRestartPolicy(t *testing.T) {

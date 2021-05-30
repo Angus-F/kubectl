@@ -30,7 +30,7 @@ import (
 	metav1beta1 "k8s.io/apimachinery/pkg/apis/meta/v1beta1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/util/diff"
-	"k8s.io/kubectl/pkg/scheme"
+	"github.com/Angus-F/kubectl/pkg/scheme"
 )
 
 func toUnstructuredOrDie(data []byte) *unstructured.Unstructured {

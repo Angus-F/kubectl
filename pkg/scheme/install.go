@@ -50,7 +50,7 @@ import (
 	metav1beta1 "k8s.io/apimachinery/pkg/apis/meta/v1beta1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	utilruntime "k8s.io/apimachinery/pkg/util/runtime"
-	"k8s.io/client-go/kubernetes/scheme"
+	"github.com/Angus-F/client-go/kubernetes/scheme"
 )
 
 // Register all groups in the kubectl's registry, but no componentconfig group since it's not in k8s.io/api

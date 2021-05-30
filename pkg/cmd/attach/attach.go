@@ -26,17 +26,17 @@ import (
 
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/runtime"
-	"k8s.io/cli-runtime/pkg/genericclioptions"
-	"k8s.io/cli-runtime/pkg/resource"
-	restclient "k8s.io/client-go/rest"
-	"k8s.io/client-go/tools/remotecommand"
-	"k8s.io/kubectl/pkg/cmd/exec"
-	cmdutil "k8s.io/kubectl/pkg/cmd/util"
-	"k8s.io/kubectl/pkg/cmd/util/podcmd"
-	"k8s.io/kubectl/pkg/polymorphichelpers"
-	"k8s.io/kubectl/pkg/scheme"
-	"k8s.io/kubectl/pkg/util/i18n"
-	"k8s.io/kubectl/pkg/util/templates"
+	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
+	"github.com/Angus-F/cli-runtime/pkg/resource"
+	restclient "github.com/Angus-F/client-go/rest"
+	"github.com/Angus-F/client-go/tools/remotecommand"
+	"github.com/Angus-F/kubectl/pkg/cmd/exec"
+	cmdutil "github.com/Angus-F/kubectl/pkg/cmd/util"
+	"github.com/Angus-F/kubectl/pkg/cmd/util/podcmd"
+	"github.com/Angus-F/kubectl/pkg/polymorphichelpers"
+	"github.com/Angus-F/kubectl/pkg/scheme"
+	"github.com/Angus-F/kubectl/pkg/util/i18n"
+	"github.com/Angus-F/kubectl/pkg/util/templates"
 )
 
 var (

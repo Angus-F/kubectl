@@ -27,9 +27,9 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/labels"
 	"k8s.io/apimachinery/pkg/watch"
-	fakeexternal "k8s.io/client-go/kubernetes/fake"
-	testcore "k8s.io/client-go/testing"
-	"k8s.io/kubectl/pkg/util/podutils"
+	fakeexternal "github.com/Angus-F/client-go/kubernetes/fake"
+	testcore "github.com/Angus-F/client-go/testing"
+	"github.com/Angus-F/kubectl/pkg/util/podutils"
 )
 
 func TestGetFirstPod(t *testing.T) {

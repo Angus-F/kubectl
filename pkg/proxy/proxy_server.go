@@ -28,10 +28,10 @@ import (
 
 	utilnet "k8s.io/apimachinery/pkg/util/net"
 	"k8s.io/apimachinery/pkg/util/proxy"
-	"k8s.io/client-go/rest"
-	"k8s.io/client-go/transport"
+	"github.com/Angus-F/client-go/rest"
+	"github.com/Angus-F/client-go/transport"
 	"k8s.io/klog/v2"
-	"k8s.io/kubectl/pkg/util"
+	"github.com/Angus-F/kubectl/pkg/util"
 )
 
 const (

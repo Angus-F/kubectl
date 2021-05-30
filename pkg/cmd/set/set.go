@@ -18,10 +18,10 @@ package set
 
 import (
 	"github.com/spf13/cobra"
-	"k8s.io/cli-runtime/pkg/genericclioptions"
-	cmdutil "k8s.io/kubectl/pkg/cmd/util"
-	"k8s.io/kubectl/pkg/util/i18n"
-	"k8s.io/kubectl/pkg/util/templates"
+	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
+	cmdutil "github.com/Angus-F/kubectl/pkg/cmd/util"
+	"github.com/Angus-F/kubectl/pkg/util/i18n"
+	"github.com/Angus-F/kubectl/pkg/util/templates"
 )
 
 var (

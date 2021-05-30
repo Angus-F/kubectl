@@ -29,7 +29,7 @@ import (
 	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/apimachinery/pkg/util/json"
 	"k8s.io/apimachinery/pkg/util/wait"
-	scaleclient "k8s.io/client-go/scale"
+	scaleclient "github.com/Angus-F/client-go/scale"
 )
 
 // Scaler provides an interface for resources that can be scaled.

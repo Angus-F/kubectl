@@ -2,9 +2,9 @@
 
 ![kubectl logo](./images/kubectl-logo-medium.png)
 
-[![Build Status](https://travis-ci.org/kubernetes/kubectl.svg?branch=master)](https://travis-ci.org/kubernetes/kubectl) [![GoDoc](https://godoc.org/k8s.io/kubectl?status.svg)](https://godoc.org/k8s.io/kubectl)
+[![Build Status](https://travis-ci.org/kubernetes/kubectl.svg?branch=master)](https://travis-ci.org/kubernetes/kubectl) [![GoDoc](https://godoc.org/github.com/Angus-F/kubectl?status.svg)](https://godoc.org/github.com/Angus-F/kubectl)
 
-The `k8s.io/kubectl` repo is used to track issues for the kubectl cli distributed
+The `github.com/Angus-F/kubectl` repo is used to track issues for the kubectl cli distributed
 with `k8s.io/kubernetes`. It also contains packages intended for use by client
 programs. E.g. these packages are vendored into `k8s.io/kubernetes` for use in
 the [kubectl](https://github.com/kubernetes/kubernetes/tree/master/cmd/kubectl)

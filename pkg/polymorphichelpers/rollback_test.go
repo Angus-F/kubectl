@@ -27,7 +27,7 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/types"
-	"k8s.io/client-go/kubernetes/fake"
+	"github.com/Angus-F/client-go/kubernetes/fake"
 )
 
 var rollbackTests = map[schema.GroupKind]reflect.Type{

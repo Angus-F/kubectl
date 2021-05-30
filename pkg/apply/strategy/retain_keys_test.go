@@ -19,7 +19,7 @@ package strategy_test
 import (
 	. "github.com/onsi/ginkgo"
 
-	"k8s.io/kubectl/pkg/apply/strategy"
+	"github.com/Angus-F/kubectl/pkg/apply/strategy"
 )
 
 var _ = Describe("Merging fields with the retainkeys strategy", func() {

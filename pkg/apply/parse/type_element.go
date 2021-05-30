@@ -18,7 +18,7 @@ package parse
 
 import (
 	"k8s.io/kube-openapi/pkg/util/proto"
-	"k8s.io/kubectl/pkg/apply"
+	"github.com/Angus-F/kubectl/pkg/apply"
 )
 
 // typeElement builds a new mapElement from a typeItem

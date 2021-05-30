@@ -21,7 +21,7 @@ import (
 
 	"github.com/moby/term"
 	"k8s.io/apimachinery/pkg/util/runtime"
-	"k8s.io/client-go/tools/remotecommand"
+	"github.com/Angus-F/client-go/tools/remotecommand"
 )
 
 // GetSize returns the current size of the user's terminal. If it isn't a terminal,

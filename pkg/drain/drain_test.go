@@ -37,8 +37,8 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/apimachinery/pkg/util/wait"
-	"k8s.io/client-go/kubernetes/fake"
-	ktest "k8s.io/client-go/testing"
+	"github.com/Angus-F/client-go/kubernetes/fake"
+	ktest "github.com/Angus-F/client-go/testing"
 )
 
 func TestDeletePods(t *testing.T) {

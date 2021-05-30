@@ -20,7 +20,7 @@ import (
 	"sync"
 
 	openapi_v2 "github.com/googleapis/gnostic/openapiv2"
-	"k8s.io/client-go/discovery"
+	"github.com/Angus-F/client-go/discovery"
 )
 
 // CachedOpenAPIGetter fetches the openapi schema once and then caches it in memory

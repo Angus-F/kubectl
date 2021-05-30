@@ -24,8 +24,8 @@ import (
 	"io/ioutil"
 	"os"
 
-	"k8s.io/cli-runtime/pkg/genericclioptions"
-	"k8s.io/client-go/rest"
+	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
+	"github.com/Angus-F/client-go/rest"
 )
 
 // RawPost uses the REST client to POST content

@@ -17,7 +17,7 @@ limitations under the License.
 package versioned
 
 import (
-	"k8s.io/kubectl/pkg/generate"
+	"github.com/Angus-F/kubectl/pkg/generate"
 )
 
 // GeneratorFn gives a way to easily override the function for unit testing if needed

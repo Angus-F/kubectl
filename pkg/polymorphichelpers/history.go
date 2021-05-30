@@ -33,12 +33,12 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/util/json"
 	"k8s.io/apimachinery/pkg/util/strategicpatch"
-	"k8s.io/client-go/kubernetes"
-	clientappsv1 "k8s.io/client-go/kubernetes/typed/apps/v1"
-	"k8s.io/kubectl/pkg/apps"
-	"k8s.io/kubectl/pkg/describe"
-	deploymentutil "k8s.io/kubectl/pkg/util/deployment"
-	sliceutil "k8s.io/kubectl/pkg/util/slice"
+	"github.com/Angus-F/client-go/kubernetes"
+	clientappsv1 "github.com/Angus-F/client-go/kubernetes/typed/apps/v1"
+	"github.com/Angus-F/kubectl/pkg/apps"
+	"github.com/Angus-F/kubectl/pkg/describe"
+	deploymentutil "github.com/Angus-F/kubectl/pkg/util/deployment"
+	sliceutil "github.com/Angus-F/kubectl/pkg/util/slice"
 )
 
 const (

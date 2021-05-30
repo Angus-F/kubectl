@@ -29,7 +29,7 @@ import (
 	"time"
 
 	"github.com/spf13/cobra"
-	"k8s.io/cli-runtime/pkg/genericclioptions"
+	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
 
 	appsv1 "k8s.io/api/apps/v1"
 	batchv1 "k8s.io/api/batch/v1"
@@ -38,11 +38,11 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/util/strategicpatch"
-	"k8s.io/client-go/rest/fake"
-	cmdtesting "k8s.io/kubectl/pkg/cmd/testing"
-	cmdutil "k8s.io/kubectl/pkg/cmd/util"
-	"k8s.io/kubectl/pkg/drain"
-	"k8s.io/kubectl/pkg/scheme"
+	"github.com/Angus-F/client-go/rest/fake"
+	cmdtesting "github.com/Angus-F/kubectl/pkg/cmd/testing"
+	cmdutil "github.com/Angus-F/kubectl/pkg/cmd/util"
+	"github.com/Angus-F/kubectl/pkg/drain"
+	"github.com/Angus-F/kubectl/pkg/scheme"
 	utilpointer "k8s.io/utils/pointer"
 )
 

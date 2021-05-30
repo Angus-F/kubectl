@@ -26,13 +26,13 @@ import (
 
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/runtime"
-	"k8s.io/cli-runtime/pkg/genericclioptions"
-	corev1client "k8s.io/client-go/kubernetes/typed/core/v1"
-	"k8s.io/client-go/rest"
-	"k8s.io/client-go/tools/reference"
-	"k8s.io/kubectl/pkg/cmd/util/podcmd"
-	"k8s.io/kubectl/pkg/scheme"
-	"k8s.io/kubectl/pkg/util/podutils"
+	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
+	corev1client "github.com/Angus-F/client-go/kubernetes/typed/core/v1"
+	"github.com/Angus-F/client-go/rest"
+	"github.com/Angus-F/client-go/tools/reference"
+	"github.com/Angus-F/kubectl/pkg/cmd/util/podcmd"
+	"github.com/Angus-F/kubectl/pkg/scheme"
+	"github.com/Angus-F/kubectl/pkg/util/podutils"
 )
 
 // defaultLogsContainerAnnotationName is an annotation name that can be used to preselect the interesting container

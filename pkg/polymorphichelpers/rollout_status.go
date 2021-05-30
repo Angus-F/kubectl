@@ -23,7 +23,7 @@ import (
 	extensionsv1beta1 "k8s.io/api/extensions/v1beta1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	deploymentutil "k8s.io/kubectl/pkg/util/deployment"
+	deploymentutil "github.com/Angus-F/kubectl/pkg/util/deployment"
 )
 
 // StatusViewer provides an interface for resources that have rollout status.

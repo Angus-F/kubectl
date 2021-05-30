@@ -25,7 +25,7 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/kube-openapi/pkg/util/proto"
 	"k8s.io/kube-openapi/pkg/util/proto/testing"
-	"k8s.io/kubectl/pkg/util/openapi"
+	"github.com/Angus-F/kubectl/pkg/util/openapi"
 )
 
 var fakeSchema = testing.Fake{Path: filepath.Join("..", "..", "..", "testdata", "openapi", "swagger.json")}

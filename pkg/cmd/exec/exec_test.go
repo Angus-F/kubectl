@@ -30,14 +30,14 @@ import (
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"k8s.io/cli-runtime/pkg/genericclioptions"
-	restclient "k8s.io/client-go/rest"
-	"k8s.io/client-go/rest/fake"
-	"k8s.io/client-go/tools/remotecommand"
+	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
+	restclient "github.com/Angus-F/client-go/rest"
+	"github.com/Angus-F/client-go/rest/fake"
+	"github.com/Angus-F/client-go/tools/remotecommand"
 
-	cmdtesting "k8s.io/kubectl/pkg/cmd/testing"
-	"k8s.io/kubectl/pkg/scheme"
-	"k8s.io/kubectl/pkg/util/term"
+	cmdtesting "github.com/Angus-F/kubectl/pkg/cmd/testing"
+	"github.com/Angus-F/kubectl/pkg/scheme"
+	"github.com/Angus-F/kubectl/pkg/util/term"
 )
 
 type fakeRemoteExecutor struct {

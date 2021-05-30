@@ -29,9 +29,9 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/types"
-	"k8s.io/client-go/scale"
-	fakescale "k8s.io/client-go/scale/fake"
-	testcore "k8s.io/client-go/testing"
+	"github.com/Angus-F/client-go/scale"
+	fakescale "github.com/Angus-F/client-go/scale/fake"
+	testcore "github.com/Angus-F/client-go/testing"
 )
 
 var (

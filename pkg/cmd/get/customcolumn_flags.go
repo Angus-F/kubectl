@@ -23,9 +23,9 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"k8s.io/cli-runtime/pkg/genericclioptions"
-	"k8s.io/cli-runtime/pkg/printers"
-	"k8s.io/kubectl/pkg/scheme"
+	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
+	"github.com/Angus-F/cli-runtime/pkg/printers"
+	"github.com/Angus-F/kubectl/pkg/scheme"
 )
 
 var columnsFormats = map[string]bool{

@@ -24,7 +24,7 @@ import (
 	"os"
 	"strings"
 
-	"k8s.io/kubectl/pkg/generated"
+	"github.com/Angus-F/kubectl/pkg/generated"
 
 	"github.com/chai2010/gettext-go/gettext"
 	"k8s.io/klog/v2"

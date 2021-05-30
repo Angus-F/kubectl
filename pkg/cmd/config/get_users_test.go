@@ -19,9 +19,9 @@ package config
 import (
 	"testing"
 
-	"k8s.io/cli-runtime/pkg/genericclioptions"
-	clientcmdapi "k8s.io/client-go/tools/clientcmd/api"
-	cmdtesting "k8s.io/kubectl/pkg/cmd/testing"
+	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
+	clientcmdapi "github.com/Angus-F/client-go/tools/clientcmd/api"
+	cmdtesting "github.com/Angus-F/kubectl/pkg/cmd/testing"
 )
 
 func TestGetUsersRun(t *testing.T) {

@@ -5,7 +5,7 @@
 ### Fixing Issues
 
 1. Open an Issue on [kubernetes/kubectl](https://github.com/kubernetes/kubectl/issues) repository
-1. Edit files under [kubernetes/kubernetes/tree/master/staging/src/k8s.io/kubectl/docs/book](https://github.com/kubernetes/kubernetes/tree/master/staging/src/k8s.io/kubectl/docs/book)
+1. Edit files under [kubernetes/kubernetes/tree/master/staging/src/github.com/Angus-F/kubectl/docs/book](https://github.com/kubernetes/kubernetes/tree/master/staging/src/github.com/Angus-F/kubectl/docs/book)
 1. Create a PR on [kubernetes/kubernetes](https://github.com/kubernetes/kubernetes) repository
 1. Email PR to kubernetes-sig-cli@googlegroups.com with subject `Kubectl Book: Fix Issue <Issue> in <PR>`
 1. Optional: Come to sig-cli meeting to discuss

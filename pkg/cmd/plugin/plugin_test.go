@@ -23,7 +23,7 @@ import (
 	"strings"
 	"testing"
 
-	"k8s.io/cli-runtime/pkg/genericclioptions"
+	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
 )
 
 func TestPluginPathsAreUnaltered(t *testing.T) {

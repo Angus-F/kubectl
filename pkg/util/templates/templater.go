@@ -23,7 +23,7 @@ import (
 	"text/template"
 	"unicode"
 
-	"k8s.io/kubectl/pkg/util/term"
+	"github.com/Angus-F/kubectl/pkg/util/term"
 
 	"github.com/spf13/cobra"
 	flag "github.com/spf13/pflag"

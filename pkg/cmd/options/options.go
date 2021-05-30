@@ -19,8 +19,8 @@ package options
 import (
 	"io"
 
-	"k8s.io/kubectl/pkg/util/i18n"
-	"k8s.io/kubectl/pkg/util/templates"
+	"github.com/Angus-F/kubectl/pkg/util/i18n"
+	"github.com/Angus-F/kubectl/pkg/util/templates"
 
 	"github.com/spf13/cobra"
 )

@@ -673,10 +673,10 @@ k8s.io/api v0.0.0-20210526145656-c1965f366614 h1:dtbswgrsOmr2QNHHLs4Paz6zOMQpjQR
 k8s.io/api v0.0.0-20210526145656-c1965f366614/go.mod h1:eWIkn4RdojmLDA8CIg8qxYIu2OMC0e1fQw5tIpdntMo=
 k8s.io/apimachinery v0.0.0-20210526145310-44113beed5d3 h1:EackAoZYmz9kh+g/lsA1j+zXT594K8sow0aZsaTGrpY=
 k8s.io/apimachinery v0.0.0-20210526145310-44113beed5d3/go.mod h1:4Cv2ieSta05uBKxq3lhGnvQDmwXVxNYosMEyZpoDRoA=
-k8s.io/cli-runtime v0.0.0-20210526153903-015c3e143216 h1:3110YuN5CH8JahkLaB8Vt8jyq3mqwVxz8esskx5nPo4=
-k8s.io/cli-runtime v0.0.0-20210526153903-015c3e143216/go.mod h1:N4Q6CPjjkpGWBR/CGRcnanYmzObv1yiH3vxaUFzDjcQ=
-k8s.io/client-go v0.0.0-20210526150137-fe090a55f17e h1:5MCG3fTV3m//oRn/KPaHuAAA+tXe1H7ClB60gs/3QyM=
-k8s.io/client-go v0.0.0-20210526150137-fe090a55f17e/go.mod h1:8uOEHQRLo077MIJmxGgmZ4l/kv/pBCcaX1MxAZqBfFs=
+github.com/Angus-F/cli-runtime v0.0.0-20210526153903-015c3e143216 h1:3110YuN5CH8JahkLaB8Vt8jyq3mqwVxz8esskx5nPo4=
+github.com/Angus-F/cli-runtime v0.0.0-20210526153903-015c3e143216/go.mod h1:N4Q6CPjjkpGWBR/CGRcnanYmzObv1yiH3vxaUFzDjcQ=
+github.com/Angus-F/client-go v0.0.0-20210526150137-fe090a55f17e h1:5MCG3fTV3m//oRn/KPaHuAAA+tXe1H7ClB60gs/3QyM=
+github.com/Angus-F/client-go v0.0.0-20210526150137-fe090a55f17e/go.mod h1:8uOEHQRLo077MIJmxGgmZ4l/kv/pBCcaX1MxAZqBfFs=
 k8s.io/code-generator v0.0.0-20210526145025-2f22fdaa793d/go.mod h1:fp5x8gEf+lkQZNI0QSsozgUC2mV9hTYCTdINDCVBbcQ=
 k8s.io/component-base v0.0.0-20210526151053-fd43e6f3a496 h1:ok5fhoRCblWF0FEx+uDGmsqMzNevooBrcvM9QurRCCw=
 k8s.io/component-base v0.0.0-20210526151053-fd43e6f3a496/go.mod h1:K2nAkGafkyCSORyfWBUUfW8EcDiHy/wkOIhSC6nQdzg=

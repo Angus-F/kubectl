@@ -1,5 +1,5 @@
 {
-	"ImportPath": "k8s.io/kubectl",
+	"ImportPath": "github.com/Angus-F/kubectl",
 	"GoVersion": "unknown",
 	"GodepVersion": "gen-godeps",
 	"Packages": [
@@ -983,11 +983,11 @@
 			"Rev": "44113beed5d3"
 		},
 		{
-			"ImportPath": "k8s.io/cli-runtime",
+			"ImportPath": "github.com/Angus-F/cli-runtime",
 			"Rev": "015c3e143216"
 		},
 		{
-			"ImportPath": "k8s.io/client-go",
+			"ImportPath": "github.com/Angus-F/client-go",
 			"Rev": "fe090a55f17e"
 		},
 		{

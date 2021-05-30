@@ -18,14 +18,14 @@ package util
 
 import (
 	"k8s.io/apimachinery/pkg/api/meta"
-	"k8s.io/cli-runtime/pkg/genericclioptions"
-	"k8s.io/cli-runtime/pkg/resource"
-	"k8s.io/client-go/discovery"
-	"k8s.io/client-go/dynamic"
-	"k8s.io/client-go/kubernetes"
-	restclient "k8s.io/client-go/rest"
-	"k8s.io/kubectl/pkg/util/openapi"
-	"k8s.io/kubectl/pkg/validation"
+	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
+	"github.com/Angus-F/cli-runtime/pkg/resource"
+	"github.com/Angus-F/client-go/discovery"
+	"github.com/Angus-F/client-go/dynamic"
+	"github.com/Angus-F/client-go/kubernetes"
+	restclient "github.com/Angus-F/client-go/rest"
+	"github.com/Angus-F/kubectl/pkg/util/openapi"
+	"github.com/Angus-F/kubectl/pkg/validation"
 )
 
 // Factory provides abstractions that allow the Kubectl command to be extended across multiple types

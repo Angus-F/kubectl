@@ -28,7 +28,7 @@ import (
 
 	"k8s.io/klog/v2"
 
-	"k8s.io/kubectl/pkg/util/term"
+	"github.com/Angus-F/kubectl/pkg/util/term"
 )
 
 const (

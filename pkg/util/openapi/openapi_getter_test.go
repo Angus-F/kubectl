@@ -23,7 +23,7 @@ import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
-	"k8s.io/kubectl/pkg/util/openapi"
+	"github.com/Angus-F/kubectl/pkg/util/openapi"
 )
 
 // FakeCounter returns a "null" document and the specified error. It

@@ -24,7 +24,7 @@ import (
 	"k8s.io/apimachinery/pkg/util/json"
 	"k8s.io/apimachinery/pkg/util/yaml"
 	"k8s.io/kube-openapi/pkg/util/proto/validation"
-	"k8s.io/kubectl/pkg/util/openapi"
+	"github.com/Angus-F/kubectl/pkg/util/openapi"
 )
 
 // SchemaValidation validates the object against an OpenAPI schema.

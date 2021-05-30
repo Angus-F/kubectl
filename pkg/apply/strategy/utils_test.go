@@ -26,10 +26,10 @@ import (
 	"sigs.k8s.io/yaml"
 
 	"k8s.io/apimachinery/pkg/util/diff"
-	"k8s.io/kubectl/pkg/apply"
-	"k8s.io/kubectl/pkg/apply/parse"
-	"k8s.io/kubectl/pkg/util/openapi"
-	tst "k8s.io/kubectl/pkg/util/openapi/testing"
+	"github.com/Angus-F/kubectl/pkg/apply"
+	"github.com/Angus-F/kubectl/pkg/apply/parse"
+	"github.com/Angus-F/kubectl/pkg/util/openapi"
+	tst "github.com/Angus-F/kubectl/pkg/util/openapi/testing"
 )
 
 const (

@@ -34,7 +34,7 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/util/diff"
 	"k8s.io/apimachinery/pkg/util/validation/field"
-	"k8s.io/kubectl/pkg/scheme"
+	"github.com/Angus-F/kubectl/pkg/scheme"
 	"k8s.io/utils/exec"
 )
 

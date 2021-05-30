@@ -16,7 +16,7 @@ limitations under the License.
 
 package parse
 
-import "k8s.io/kubectl/pkg/apply"
+import "github.com/Angus-F/kubectl/pkg/apply"
 
 // primitiveElement builds a new primitiveElement from a PrimitiveItem
 func (v ElementBuildingVisitor) primitiveElement(item *primitiveItem) (*apply.PrimitiveElement, error) {

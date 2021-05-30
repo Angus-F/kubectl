@@ -19,7 +19,7 @@ package strategy
 import (
 	"fmt"
 
-	"k8s.io/kubectl/pkg/apply"
+	"github.com/Angus-F/kubectl/pkg/apply"
 )
 
 func createMergeStrategy(options Options, strategic *delegatingStrategy) mergeStrategy {

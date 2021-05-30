@@ -18,9 +18,9 @@ package auth
 
 import (
 	"github.com/spf13/cobra"
-	"k8s.io/cli-runtime/pkg/genericclioptions"
+	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
 
-	cmdutil "k8s.io/kubectl/pkg/cmd/util"
+	cmdutil "github.com/Angus-F/kubectl/pkg/cmd/util"
 )
 
 // NewCmdAuth returns an initialized Command instance for 'auth' sub command

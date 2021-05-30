@@ -19,9 +19,9 @@ package strategy_test
 import (
 	. "github.com/onsi/ginkgo"
 
-	"k8s.io/kubectl/pkg/apply/strategy"
-	"k8s.io/kubectl/pkg/util/openapi"
-	tst "k8s.io/kubectl/pkg/util/openapi/testing"
+	"github.com/Angus-F/kubectl/pkg/apply/strategy"
+	"github.com/Angus-F/kubectl/pkg/util/openapi"
+	tst "github.com/Angus-F/kubectl/pkg/util/openapi/testing"
 )
 
 var _ = Describe("Merging fields of type list-of-map with openapi", func() {

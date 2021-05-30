@@ -17,7 +17,7 @@ limitations under the License.
 package strategy
 
 import (
-	"k8s.io/kubectl/pkg/apply"
+	"github.com/Angus-F/kubectl/pkg/apply"
 )
 
 // delegatingStrategy delegates merging fields to other visitor implementations

@@ -23,12 +23,12 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"k8s.io/client-go/tools/clientcmd"
-	clientcmdapi "k8s.io/client-go/tools/clientcmd/api"
+	"github.com/Angus-F/client-go/tools/clientcmd"
+	clientcmdapi "github.com/Angus-F/client-go/tools/clientcmd/api"
 	cliflag "k8s.io/component-base/cli/flag"
-	cmdutil "k8s.io/kubectl/pkg/cmd/util"
-	"k8s.io/kubectl/pkg/util/i18n"
-	"k8s.io/kubectl/pkg/util/templates"
+	cmdutil "github.com/Angus-F/kubectl/pkg/cmd/util"
+	"github.com/Angus-F/kubectl/pkg/util/i18n"
+	"github.com/Angus-F/kubectl/pkg/util/templates"
 )
 
 type createContextOptions struct {

@@ -22,8 +22,8 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"k8s.io/cli-runtime/pkg/genericclioptions"
-	cmdutil "k8s.io/kubectl/pkg/cmd/util"
+	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
+	cmdutil "github.com/Angus-F/kubectl/pkg/cmd/util"
 )
 
 func TestNewCmdVersionWithoutConfigFile(t *testing.T) {
@@ -37,7 +37,7 @@ func TestNewCmdVersionWithoutConfigFile(t *testing.T) {
 		t.Errorf("Unexpected error: %v", err)
 	}
 	// FIXME soltysh:
-	// since we have defaulting to localhost:8080 in staging/src/k8s.io/client-go/tools/clientcmd/client_config.go#getDefaultServer
+	// since we have defaulting to localhost:8080 in staging/src/github.com/Angus-F/client-go/tools/clientcmd/client_config.go#getDefaultServer
 	// we need to ignore the localhost:8080 server, when above gets removed this should be dropped too
 	if err := o.Run(); err != nil && !strings.Contains(err.Error(), "localhost:8080") {
 		t.Errorf("Cannot execute version command: %v", err)

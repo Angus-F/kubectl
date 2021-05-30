@@ -32,11 +32,11 @@ import (
 	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/apimachinery/pkg/util/json"
 	"k8s.io/apimachinery/pkg/util/strategicpatch"
-	"k8s.io/client-go/kubernetes"
-	"k8s.io/kubectl/pkg/apps"
-	cmdutil "k8s.io/kubectl/pkg/cmd/util"
-	"k8s.io/kubectl/pkg/scheme"
-	deploymentutil "k8s.io/kubectl/pkg/util/deployment"
+	"github.com/Angus-F/client-go/kubernetes"
+	"github.com/Angus-F/kubectl/pkg/apps"
+	cmdutil "github.com/Angus-F/kubectl/pkg/cmd/util"
+	"github.com/Angus-F/kubectl/pkg/scheme"
+	deploymentutil "github.com/Angus-F/kubectl/pkg/util/deployment"
 )
 
 const (

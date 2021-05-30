@@ -21,8 +21,8 @@ import (
 	"reflect"
 
 	"k8s.io/kube-openapi/pkg/util/proto"
-	"k8s.io/kubectl/pkg/apply"
-	"k8s.io/kubectl/pkg/util/openapi"
+	"github.com/Angus-F/kubectl/pkg/apply"
+	"github.com/Angus-F/kubectl/pkg/util/openapi"
 )
 
 // Factory creates an Element by combining object values from recorded, local and remote sources with

@@ -37,11 +37,11 @@ import (
 	"k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"k8s.io/cli-runtime/pkg/genericclioptions"
-	"k8s.io/client-go/rest/fake"
-	kexec "k8s.io/kubectl/pkg/cmd/exec"
-	cmdtesting "k8s.io/kubectl/pkg/cmd/testing"
-	"k8s.io/kubectl/pkg/scheme"
+	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
+	"github.com/Angus-F/client-go/rest/fake"
+	kexec "github.com/Angus-F/kubectl/pkg/cmd/exec"
+	cmdtesting "github.com/Angus-F/kubectl/pkg/cmd/testing"
+	"github.com/Angus-F/kubectl/pkg/scheme"
 )
 
 type FileType int

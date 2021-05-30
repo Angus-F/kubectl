@@ -22,7 +22,7 @@ import (
 
 	"k8s.io/apimachinery/pkg/api/meta/testrestmapper"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"k8s.io/kubectl/pkg/scheme"
+	"github.com/Angus-F/kubectl/pkg/scheme"
 )
 
 func TestSplitAndParseResourceRequest(t *testing.T) {

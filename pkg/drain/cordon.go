@@ -28,7 +28,7 @@ import (
 	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/apimachinery/pkg/util/json"
 	"k8s.io/apimachinery/pkg/util/strategicpatch"
-	"k8s.io/client-go/kubernetes"
+	"github.com/Angus-F/client-go/kubernetes"
 )
 
 // CordonHelper wraps functionality to cordon/uncordon nodes

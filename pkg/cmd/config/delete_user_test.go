@@ -21,10 +21,10 @@ import (
 	"strings"
 	"testing"
 
-	"k8s.io/cli-runtime/pkg/genericclioptions"
-	"k8s.io/client-go/tools/clientcmd"
-	clientcmdapi "k8s.io/client-go/tools/clientcmd/api"
-	cmdtesting "k8s.io/kubectl/pkg/cmd/testing"
+	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
+	"github.com/Angus-F/client-go/tools/clientcmd"
+	clientcmdapi "github.com/Angus-F/client-go/tools/clientcmd/api"
+	cmdtesting "github.com/Angus-F/kubectl/pkg/cmd/testing"
 )
 
 func TestDeleteUserComplete(t *testing.T) {

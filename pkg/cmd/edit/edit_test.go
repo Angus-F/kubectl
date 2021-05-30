@@ -35,13 +35,13 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/util/diff"
 	"k8s.io/apimachinery/pkg/util/sets"
-	"k8s.io/cli-runtime/pkg/genericclioptions"
-	"k8s.io/cli-runtime/pkg/resource"
-	"k8s.io/client-go/rest/fake"
-	"k8s.io/kubectl/pkg/cmd/apply"
-	"k8s.io/kubectl/pkg/cmd/create"
-	cmdtesting "k8s.io/kubectl/pkg/cmd/testing"
-	cmdutil "k8s.io/kubectl/pkg/cmd/util"
+	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
+	"github.com/Angus-F/cli-runtime/pkg/resource"
+	"github.com/Angus-F/client-go/rest/fake"
+	"github.com/Angus-F/kubectl/pkg/cmd/apply"
+	"github.com/Angus-F/kubectl/pkg/cmd/create"
+	cmdtesting "github.com/Angus-F/kubectl/pkg/cmd/testing"
+	cmdutil "github.com/Angus-F/kubectl/pkg/cmd/util"
 )
 
 type EditTestCase struct {

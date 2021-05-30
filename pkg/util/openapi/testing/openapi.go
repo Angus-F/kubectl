@@ -20,7 +20,7 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/kube-openapi/pkg/util/proto"
 	"k8s.io/kube-openapi/pkg/util/proto/testing"
-	"k8s.io/kubectl/pkg/util/openapi"
+	"github.com/Angus-F/kubectl/pkg/util/openapi"
 )
 
 // FakeResources is a wrapper to directly load the openapi schema from a

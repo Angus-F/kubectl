@@ -31,11 +31,11 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/apimachinery/pkg/watch"
-	"k8s.io/cli-runtime/pkg/genericclioptions"
-	"k8s.io/cli-runtime/pkg/printers"
-	"k8s.io/cli-runtime/pkg/resource"
-	dynamicfakeclient "k8s.io/client-go/dynamic/fake"
-	clienttesting "k8s.io/client-go/testing"
+	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
+	"github.com/Angus-F/cli-runtime/pkg/printers"
+	"github.com/Angus-F/cli-runtime/pkg/resource"
+	dynamicfakeclient "github.com/Angus-F/client-go/dynamic/fake"
+	clienttesting "github.com/Angus-F/client-go/testing"
 )
 
 func newUnstructuredList(items ...*unstructured.Unstructured) *unstructured.UnstructuredList {

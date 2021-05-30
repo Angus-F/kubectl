@@ -26,11 +26,11 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"k8s.io/client-go/tools/clientcmd"
+	"github.com/Angus-F/client-go/tools/clientcmd"
 	cliflag "k8s.io/component-base/cli/flag"
-	cmdutil "k8s.io/kubectl/pkg/cmd/util"
-	"k8s.io/kubectl/pkg/util/i18n"
-	"k8s.io/kubectl/pkg/util/templates"
+	cmdutil "github.com/Angus-F/kubectl/pkg/cmd/util"
+	"github.com/Angus-F/kubectl/pkg/util/i18n"
+	"github.com/Angus-F/kubectl/pkg/util/templates"
 )
 
 type setOptions struct {

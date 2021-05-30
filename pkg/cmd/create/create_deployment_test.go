@@ -25,12 +25,12 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"k8s.io/cli-runtime/pkg/genericclioptions"
-	restclient "k8s.io/client-go/rest"
-	"k8s.io/client-go/rest/fake"
-	cmdtesting "k8s.io/kubectl/pkg/cmd/testing"
-	cmdutil "k8s.io/kubectl/pkg/cmd/util"
-	"k8s.io/kubectl/pkg/scheme"
+	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
+	restclient "github.com/Angus-F/client-go/rest"
+	"github.com/Angus-F/client-go/rest/fake"
+	cmdtesting "github.com/Angus-F/kubectl/pkg/cmd/testing"
+	cmdutil "github.com/Angus-F/kubectl/pkg/cmd/util"
+	"github.com/Angus-F/kubectl/pkg/scheme"
 )
 
 func TestCreateDeployment(t *testing.T) {

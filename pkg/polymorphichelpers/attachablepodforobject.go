@@ -23,9 +23,9 @@ import (
 
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/runtime"
-	"k8s.io/cli-runtime/pkg/genericclioptions"
-	corev1client "k8s.io/client-go/kubernetes/typed/core/v1"
-	"k8s.io/kubectl/pkg/util/podutils"
+	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
+	corev1client "github.com/Angus-F/client-go/kubernetes/typed/core/v1"
+	"github.com/Angus-F/kubectl/pkg/util/podutils"
 )
 
 // attachablePodForObject returns the pod to which to attach given an object.

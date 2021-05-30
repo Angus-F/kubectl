@@ -32,8 +32,8 @@ import (
 	"k8s.io/apimachinery/pkg/labels"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/watch"
-	coreclient "k8s.io/client-go/kubernetes/typed/core/v1"
-	watchtools "k8s.io/client-go/tools/watch"
+	coreclient "github.com/Angus-F/client-go/kubernetes/typed/core/v1"
+	watchtools "github.com/Angus-F/client-go/tools/watch"
 )
 
 // GetFirstPod returns a pod matching the namespace and label selector

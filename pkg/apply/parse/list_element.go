@@ -20,7 +20,7 @@ import (
 	"fmt"
 
 	"k8s.io/kube-openapi/pkg/util/proto"
-	"k8s.io/kubectl/pkg/apply"
+	"github.com/Angus-F/kubectl/pkg/apply"
 )
 
 // Contains the heavy lifting for finding tuples of matching elements in lists based on the merge key
