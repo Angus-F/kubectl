@@ -13,7 +13,7 @@ import (
 	"github.com/Angus-F/kubectl/pkg/util/logs"
 
 	// Import to initialize client auth plugins.
-	_ "k8s.io/client-go/plugin/pkg/client/auth"
+	_ "github.com/Angus-F/client-go/plugin/pkg/client/auth"
 )
 
 func main() {
