@@ -31,7 +31,7 @@ import (
 
 	"github.com/Angus-F/client-go/rest"
 	"github.com/Angus-F/client-go/tools/clientcmd"
-	cliflag "github.com/Angus-F/component-base/cli/flag"
+	cliflag "k8s.io/component-base/cli/flag"
 	"github.com/Angus-F/kubectl/pkg/cmd/annotate"
 	"github.com/Angus-F/kubectl/pkg/cmd/apiresources"
 	"github.com/Angus-F/kubectl/pkg/cmd/apply"

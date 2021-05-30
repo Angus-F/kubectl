@@ -22,7 +22,7 @@ import (
 	"io"
 	"io/ioutil"
 	"github.com/Angus-F/client-go/tools/clientcmd"
-	clientcmdapi "github/Angus-F/client-go/tools/clientcmd/api"
+	clientcmdapi "github.com/Angus-F/client-go/tools/clientcmd/api"
 	"net/url"
 	"path/filepath"
 	"time"
