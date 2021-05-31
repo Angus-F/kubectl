@@ -32,8 +32,8 @@ import (
 	core "github.com/Angus-F/client-go/testing"
 	cmdtesting "github.com/Angus-F/kubectl/pkg/cmd/testing"
 	"github.com/Angus-F/kubectl/pkg/scheme"
-	metricsv1beta1api "k8s.io/metrics/pkg/apis/metrics/v1beta1"
-	metricsfake "k8s.io/metrics/pkg/client/clientset/versioned/fake"
+	metricsv1beta1api "github.com/Angus-F/metrics/pkg/apis/metrics/v1beta1"
+	metricsfake "github.com/Angus-F/metrics/pkg/client/clientset/versioned/fake"
 )
 
 const (

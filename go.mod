@@ -29,16 +29,15 @@ require (
 	github.com/spf13/cobra v1.1.1
 	github.com/spf13/pflag v1.0.5
 	github.com/stretchr/testify v1.7.0
-	golang.org/x/oauth2 v0.0.0-20200107190931-bf48bf16ab8d // indirect
 	golang.org/x/sys v0.0.0-20210426230700-d19ff857e887
 	gopkg.in/yaml.v2 v2.4.0
 	k8s.io/api v0.21.1
 	k8s.io/apimachinery v0.22.0-alpha.2.0.20210526145310-44113beed5d3
 	k8s.io/component-base v0.0.0-20210526151053-fd43e6f3a496
-	k8s.io/component-helpers v0.20.0-alpha.2.0.20210526151303-93a4a8aef90f
+	github.com/Angus-F/component-helpers v0.20.0-alpha.2.0.20210526151303-93a4a8aef90f
 	k8s.io/klog/v2 v2.9.0
 	k8s.io/kube-openapi v0.0.0-20210421082810-95288971da7e
-	k8s.io/metrics v0.0.0-20210526153645-a7dc02474fd6
+	github.com/Angus-F/metrics v0.0.0-20210526153645-a7dc02474fd6
 	k8s.io/utils v0.0.0-20201110183641-67b214c5f920
 	sigs.k8s.io/kustomize/api v0.8.10
 	sigs.k8s.io/kustomize/kustomize/v4 v4.1.3
@@ -46,7 +45,12 @@ require (
 )
 
 replace (
-	github.com/Angus-F/cli-runtime => ../cli-runtime
-	github.com/Angus-F/client-go => ../client-go
-
+	github.com/Angus-F/cli-runtime v0.0.0-20210526153903-015c3e143216 => github.com/Angus-F/cli-runtime v0.0.0-20210530083823-b23d0b01184c
+	github.com/Angus-F/client-go v0.0.0-20210526225611-ccac4151908b => github.com/Angus-F/client-go v0.0.0-20210530083209-64b6dbd34c98
+	k8s.io/api => k8s.io/api v0.0.0-20210526145656-c1965f366614
+	k8s.io/apimachinery => k8s.io/apimachinery v0.0.0-20210526145310-44113beed5d3
+	k8s.io/code-generator => k8s.io/code-generator v0.0.0-20210526145025-2f22fdaa793d
+	k8s.io/component-base => k8s.io/component-base v0.0.0-20210526151053-fd43e6f3a496
+	github.com/Angus-F/component-helpers => github.com/Angus-F/component-helpers v0.0.0-20210526151303-93a4a8aef90f
+	github.com/Angus-F/metrics => github.com/Angus-F/metrics v0.0.0-20210526153645-a7dc02474fd6
 )

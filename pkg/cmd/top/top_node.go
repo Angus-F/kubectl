@@ -32,9 +32,9 @@ import (
 	"github.com/Angus-F/kubectl/pkg/metricsutil"
 	"github.com/Angus-F/kubectl/pkg/util/i18n"
 	"github.com/Angus-F/kubectl/pkg/util/templates"
-	metricsapi "k8s.io/metrics/pkg/apis/metrics"
-	metricsV1beta1api "k8s.io/metrics/pkg/apis/metrics/v1beta1"
-	metricsclientset "k8s.io/metrics/pkg/client/clientset/versioned"
+	metricsapi "github.com/Angus-F/metrics/pkg/apis/metrics"
+	metricsV1beta1api "github.com/Angus-F/metrics/pkg/apis/metrics/v1beta1"
+	metricsclientset "github.com/Angus-F/metrics/pkg/client/clientset/versioned"
 )
 
 // TopNodeOptions contains all the options for running the top-node cli command.

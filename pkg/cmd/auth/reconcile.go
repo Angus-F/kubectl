@@ -32,7 +32,7 @@ import (
 	"github.com/Angus-F/cli-runtime/pkg/resource"
 	corev1client "github.com/Angus-F/client-go/kubernetes/typed/core/v1"
 	rbacv1client "github.com/Angus-F/client-go/kubernetes/typed/rbac/v1"
-	"k8s.io/component-helpers/auth/rbac/reconciliation"
+	"github.com/Angus-F/component-helpers/auth/rbac/reconciliation"
 	cmdutil "github.com/Angus-F/kubectl/pkg/cmd/util"
 	"github.com/Angus-F/kubectl/pkg/scheme"
 	"github.com/Angus-F/kubectl/pkg/util/templates"

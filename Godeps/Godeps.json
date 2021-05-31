@@ -999,7 +999,7 @@
 			"Rev": "fd43e6f3a496"
 		},
 		{
-			"ImportPath": "k8s.io/component-helpers",
+			"ImportPath": "github.com/Angus-F/component-helpers",
 			"Rev": "93a4a8aef90f"
 		},
 		{
@@ -1015,7 +1015,7 @@
 			"Rev": "95288971da7e"
 		},
 		{
-			"ImportPath": "k8s.io/metrics",
+			"ImportPath": "github.com/Angus-F/metrics",
 			"Rev": "a7dc02474fd6"
 		},
 		{

@@ -30,7 +30,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
 	cmdtesting "github.com/Angus-F/kubectl/pkg/cmd/testing"
-	metricsv1beta1api "k8s.io/metrics/pkg/apis/metrics/v1beta1"
+	metricsv1beta1api "github.com/Angus-F/metrics/pkg/apis/metrics/v1beta1"
 )
 
 func TestTopSubcommandsExist(t *testing.T) {
