@@ -21,7 +21,10 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"github.com/Angus-F/client-go/tools/clientcmd"
 	"io"
+	"io/ioutil"
+	"path/filepath"
 	"regexp"
 	"sync"
 	"time"
@@ -42,11 +45,12 @@ import (
 )
 
 const (
-	logsUsageStr = "logs [-f] [-p] (POD | TYPE/NAME) [-c CONTAINER]"
+	logsUsageStr = "logs [-f] [-p] (POD | TYPE/NAME) [-c CONTAINER] (--clusterName= | C )"
 )
 
 var (
 	logsLong = templates.LongDesc(i18n.T(`
+        !!!!!clusterName is required strictly!!!!! (--clusterName=| -C)
 		Print the logs for a container in a pod or specified resource. 
 		If the pod has only one container, the container name is optional.`))
 
@@ -129,6 +133,9 @@ type LogsOptions struct {
 	TailSpecified bool
 
 	containerNameFromRefSpecRegexp *regexp.Regexp
+
+	ClusterName string
+	Configs map[string][]byte
 }
 
 func NewLogsOptions(streams genericclioptions.IOStreams, allContainers bool) *LogsOptions {
@@ -179,6 +186,7 @@ func (o *LogsOptions) AddFlags(cmd *cobra.Command) {
 	cmd.Flags().StringVarP(&o.Selector, "selector", "l", o.Selector, "Selector (label query) to filter on.")
 	cmd.Flags().IntVar(&o.MaxFollowConcurrency, "max-log-requests", o.MaxFollowConcurrency, "Specify maximum number of concurrent logs to follow when using by a selector. Defaults to 5.")
 	cmd.Flags().BoolVar(&o.Prefix, "prefix", o.Prefix, "Prefix each log line with the log source (pod name and container name)")
+	cmdutil.AddClusterVarFlags(cmd, &o.ClusterName, o.ClusterName)
 }
 
 func (o *LogsOptions) ToLogOptions() (*corev1.PodLogOptions, error) {
@@ -239,6 +247,37 @@ func (o *LogsOptions) Complete(f cmdutil.Factory, cmd *cobra.Command, args []str
 	default:
 		return cmdutil.UsageErrorf(cmd, "%s", logsUsageErrStr)
 	}
+
+	var s []string
+	s, _ = clientcmd.GetAllFile(clientcmd.RecommendedConfigDir, s)
+	o.Configs = make(map[string][]byte)
+	for _, filename := range s {
+		ConfigContents, err := ioutil.ReadFile(filename)
+		if err != nil {
+			return err
+		}
+		o.Configs[filename] = ConfigContents
+	}
+
+
+	if len(o.ClusterName) > 0 {
+		flag := false
+		for filename := range o.Configs {
+			if filename == filepath.Join(clientcmd.RecommendedConfigDir, o.ClusterName) {
+				flag = true
+				break
+			}
+		}
+		if !flag {
+			return fmt.Errorf("the clusterName can not be found")
+		}
+	} else {
+		return fmt.Errorf("Please set the clusterName")
+	}
+
+	ClientConfig, _ := f.NewClientConfigFromBytesWithConfigFlags(o.Configs[filepath.Join(clientcmd.RecommendedConfigDir, o.ClusterName)])
+	f.SetClientConfig(&ClientConfig)
+
 	var err error
 	o.Namespace, _, err = f.ToRawKubeConfigLoader().Namespace()
 	if err != nil {
