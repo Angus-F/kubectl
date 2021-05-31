@@ -34,10 +34,10 @@ require (
 	k8s.io/api v0.21.1
 	k8s.io/apimachinery v0.22.0-alpha.2.0.20210526145310-44113beed5d3
 	k8s.io/component-base v0.0.0-20210526151053-fd43e6f3a496
-	github.com/Angus-F/component-helpers v0.20.0-alpha.2.0.20210526151303-93a4a8aef90f
+	github.com/Angus-F/component-helpers 735649a
 	k8s.io/klog/v2 v2.9.0
 	k8s.io/kube-openapi v0.0.0-20210421082810-95288971da7e
-	github.com/Angus-F/metrics v0.0.0-20210526153645-a7dc02474fd6
+	github.com/Angus-F/metrics 79b23da
 	k8s.io/utils v0.0.0-20201110183641-67b214c5f920
 	sigs.k8s.io/kustomize/api v0.8.10
 	sigs.k8s.io/kustomize/kustomize/v4 v4.1.3
@@ -51,6 +51,4 @@ replace (
 	k8s.io/apimachinery => k8s.io/apimachinery v0.0.0-20210526145310-44113beed5d3
 	k8s.io/code-generator => k8s.io/code-generator v0.0.0-20210526145025-2f22fdaa793d
 	k8s.io/component-base => k8s.io/component-base v0.0.0-20210526151053-fd43e6f3a496
-	github.com/Angus-F/component-helpers => github.com/Angus-F/component-helpers v0.0.0-20210526151303-93a4a8aef90f
-	github.com/Angus-F/metrics => github.com/Angus-F/metrics v0.0.0-20210526153645-a7dc02474fd6
 )
