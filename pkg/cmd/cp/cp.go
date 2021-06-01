@@ -84,7 +84,6 @@ type CopyOptions struct {
 	NoPreserve bool
 
 	ClusterName string
-	clientcmd.ConfigAccess
 
 	ClientConfig      *restclient.Config
 	Clientset         kubernetes.Interface
@@ -95,16 +94,15 @@ type CopyOptions struct {
 }
 
 // NewCopyOptions creates the options for copy
-func NewCopyOptions(ioStreams genericclioptions.IOStreams, configAccess clientcmd.ConfigAccess) *CopyOptions {
+func NewCopyOptions(ioStreams genericclioptions.IOStreams) *CopyOptions {
 	return &CopyOptions{
 		IOStreams: ioStreams,
-		ConfigAccess: configAccess,
 	}
 }
 
 // NewCmdCp creates a new Copy command.
-func NewCmdCp(f cmdutil.Factory, ioStreams genericclioptions.IOStreams, configAccess clientcmd.ConfigAccess) *cobra.Command {
-	o := NewCopyOptions(ioStreams, configAccess)
+func NewCmdCp(f cmdutil.Factory, ioStreams genericclioptions.IOStreams) *cobra.Command {
+	o := NewCopyOptions(ioStreams)
 
 	cmd := &cobra.Command{
 		Use:                   "cp <file-spec-src> <file-spec-dest> (clusterName is required strictly)",

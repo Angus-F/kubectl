@@ -80,12 +80,11 @@ const (
 	defaultPodExecTimeout = 60 * time.Second
 )
 
-func NewCmdExec(f cmdutil.Factory, streams genericclioptions.IOStreams, configAccess clientcmd.ConfigAccess) *cobra.Command {
+func NewCmdExec(f cmdutil.Factory, streams genericclioptions.IOStreams) *cobra.Command {
 	options := &ExecOptions{
 		StreamOptions: StreamOptions{
 			IOStreams: streams,
 		},
-		ConfigAccess: configAccess,
 		Executor: &DefaultRemoteExecutor{},
 	}
 	cmd := &cobra.Command{
@@ -156,7 +155,6 @@ type StreamOptions struct {
 type ExecOptions struct {
 	StreamOptions
 	resource.FilenameOptions
-	clientcmd.ConfigAccess
 
 	ClusterName      string
 	ResourceName     string
