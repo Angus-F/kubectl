@@ -228,7 +228,6 @@ func (p *ExecOptions) Complete(f cmdutil.Factory, cmd *cobra.Command, argsIn []s
 	if err != nil {
 		return err
 	}
-	fmt.Println(p.Namespace)
 	p.ExecutablePodFn = polymorphichelpers.AttachablePodForObjectFn
 
 	p.GetPodTimeout, err = cmdutil.GetPodRunningTimeoutFlag(cmd)
