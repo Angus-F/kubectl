@@ -32,8 +32,8 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/runtime/serializer"
 	utilruntime "k8s.io/apimachinery/pkg/util/runtime"
-	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
-	"github.com/Angus-F/cli-runtime/pkg/resource"
+	"k8s.io/cli-runtime/pkg/genericclioptions"
+	"k8s.io/cli-runtime/pkg/resource"
 	"github.com/Angus-F/client-go/discovery"
 	diskcached "github.com/Angus-F/client-go/discovery/cached/disk"
 	"github.com/Angus-F/client-go/dynamic"
@@ -565,6 +565,7 @@ func (f *TestFactory) KubernetesClientSet() (*kubernetes.Clientset, error) {
 	clientset.AppsV1beta2().RESTClient().(*restclient.RESTClient).Client = fakeClient.Client
 	clientset.AppsV1().RESTClient().(*restclient.RESTClient).Client = fakeClient.Client
 	clientset.PolicyV1beta1().RESTClient().(*restclient.RESTClient).Client = fakeClient.Client
+	clientset.PolicyV1().RESTClient().(*restclient.RESTClient).Client = fakeClient.Client
 	clientset.DiscoveryClient.RESTClient().(*restclient.RESTClient).Client = fakeClient.Client
 
 	return clientset, nil
@@ -809,15 +810,4 @@ func testDynamicResources() []*restmapper.APIGroupResources {
 			},
 		},
 	}
-}
-
-func (f *TestFactory)SetClientConfig(clientConfig *clientcmd.ClientConfig) {
-
-}
-func (f *TestFactory)GetConfigFlags() *genericclioptions.ConfigFlags {
-	return nil
-}
-
-func (f *TestFactory)NewClientConfigFromBytesWithConfigFlags(configBytes []byte) (clientcmd.ClientConfig, error) {
-	return nil, nil
 }

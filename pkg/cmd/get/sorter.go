@@ -30,7 +30,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime"
-	"github.com/Angus-F/cli-runtime/pkg/printers"
+	"k8s.io/cli-runtime/pkg/printers"
 	"github.com/Angus-F/client-go/util/jsonpath"
 	"k8s.io/utils/integer"
 

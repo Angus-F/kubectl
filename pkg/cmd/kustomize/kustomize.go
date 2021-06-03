@@ -18,7 +18,7 @@ package kustomize
 
 import (
 	"github.com/spf13/cobra"
-	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
+	"k8s.io/cli-runtime/pkg/genericclioptions"
 	"github.com/Angus-F/kubectl/pkg/util/i18n"
 	"github.com/Angus-F/kubectl/pkg/util/templates"
 	"sigs.k8s.io/kustomize/api/filesys"

@@ -22,7 +22,7 @@ import (
 	"path"
 	"testing"
 
-	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
+	"k8s.io/cli-runtime/pkg/genericclioptions"
 	cmdtesting "github.com/Angus-F/kubectl/pkg/cmd/testing"
 )
 

@@ -25,7 +25,7 @@ import (
 	metav1beta1 "k8s.io/apimachinery/pkg/apis/meta/v1beta1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"github.com/Angus-F/cli-runtime/pkg/printers"
+	"k8s.io/cli-runtime/pkg/printers"
 	"k8s.io/klog/v2"
 )
 

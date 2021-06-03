@@ -27,7 +27,7 @@ import (
 
 	apiequality "k8s.io/apimachinery/pkg/api/equality"
 	"k8s.io/apimachinery/pkg/util/diff"
-	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
+	"k8s.io/cli-runtime/pkg/genericclioptions"
 	"github.com/Angus-F/client-go/tools/clientcmd"
 	clientcmdapi "github.com/Angus-F/client-go/tools/clientcmd/api"
 	cmdutil "github.com/Angus-F/kubectl/pkg/cmd/util"

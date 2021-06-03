@@ -24,17 +24,16 @@ import (
 	"k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/labels"
-	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
+	"k8s.io/cli-runtime/pkg/genericclioptions"
 	"github.com/Angus-F/client-go/discovery"
 	corev1client "github.com/Angus-F/client-go/kubernetes/typed/core/v1"
-	"k8s.io/klog/v2"
 	cmdutil "github.com/Angus-F/kubectl/pkg/cmd/util"
 	"github.com/Angus-F/kubectl/pkg/metricsutil"
 	"github.com/Angus-F/kubectl/pkg/util/i18n"
 	"github.com/Angus-F/kubectl/pkg/util/templates"
-	metricsapi "github.com/Angus-F/metrics/pkg/apis/metrics"
-	metricsV1beta1api "github.com/Angus-F/metrics/pkg/apis/metrics/v1beta1"
-	metricsclientset "github.com/Angus-F/metrics/pkg/client/clientset/versioned"
+	metricsapi "k8s.io/metrics/pkg/apis/metrics"
+	metricsV1beta1api "k8s.io/metrics/pkg/apis/metrics/v1beta1"
+	metricsclientset "k8s.io/metrics/pkg/client/clientset/versioned"
 )
 
 // TopNodeOptions contains all the options for running the top-node cli command.
@@ -70,7 +69,8 @@ var (
 func NewCmdTopNode(f cmdutil.Factory, o *TopNodeOptions, streams genericclioptions.IOStreams) *cobra.Command {
 	if o == nil {
 		o = &TopNodeOptions{
-			IOStreams: streams,
+			IOStreams:          streams,
+			UseProtocolBuffers: true,
 		}
 	}
 
@@ -90,7 +90,7 @@ func NewCmdTopNode(f cmdutil.Factory, o *TopNodeOptions, streams genericclioptio
 	cmd.Flags().StringVarP(&o.Selector, "selector", "l", o.Selector, "Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2)")
 	cmd.Flags().StringVar(&o.SortBy, "sort-by", o.SortBy, "If non-empty, sort nodes list using specified field. The field can be either 'cpu' or 'memory'.")
 	cmd.Flags().BoolVar(&o.NoHeaders, "no-headers", o.NoHeaders, "If present, print output without headers")
-	cmd.Flags().BoolVar(&o.UseProtocolBuffers, "use-protocol-buffers", o.UseProtocolBuffers, "If present, protocol-buffers will be used to request metrics.")
+	cmd.Flags().BoolVar(&o.UseProtocolBuffers, "use-protocol-buffers", o.UseProtocolBuffers, "Enables using protocol-buffers to access Metrics API.")
 
 	return cmd
 }
@@ -115,8 +115,6 @@ func (o *TopNodeOptions) Complete(f cmdutil.Factory, cmd *cobra.Command, args []
 	}
 	if o.UseProtocolBuffers {
 		config.ContentType = "application/vnd.kubernetes.protobuf"
-	} else {
-		klog.Warning("Using json format to get metrics. Next release will switch to protocol-buffers, switch early by passing --use-protocol-buffers flag")
 	}
 	o.MetricsClient, err = metricsclientset.NewForConfig(config)
 	if err != nil {

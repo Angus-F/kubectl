@@ -19,7 +19,7 @@ package describe
 import (
 	"fmt"
 	"k8s.io/apimachinery/pkg/api/meta"
-	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
+	"k8s.io/cli-runtime/pkg/genericclioptions"
 )
 
 const (

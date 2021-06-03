@@ -23,7 +23,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
+	"k8s.io/cli-runtime/pkg/genericclioptions"
 	cmdutil "github.com/Angus-F/kubectl/pkg/cmd/util"
 )
 

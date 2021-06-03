@@ -25,7 +25,7 @@ import (
 	"time"
 
 	"github.com/spf13/cobra"
-	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
+	"k8s.io/cli-runtime/pkg/genericclioptions"
 	"github.com/Angus-F/client-go/rest"
 	"k8s.io/klog/v2"
 	cmdutil "github.com/Angus-F/kubectl/pkg/cmd/util"

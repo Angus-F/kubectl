@@ -22,13 +22,18 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"io/ioutil"
+	"path/filepath"
 	"regexp"
 	"sync"
 	"time"
 
 	"github.com/spf13/cobra"
 
-	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
+	corev1 "k8s.io/api/core/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/runtime"
+	"k8s.io/cli-runtime/pkg/genericclioptions"
 	"github.com/Angus-F/client-go/rest"
 	cmdutil "github.com/Angus-F/kubectl/pkg/cmd/util"
 	"github.com/Angus-F/kubectl/pkg/polymorphichelpers"
@@ -36,18 +41,14 @@ import (
 	"github.com/Angus-F/kubectl/pkg/util"
 	"github.com/Angus-F/kubectl/pkg/util/i18n"
 	"github.com/Angus-F/kubectl/pkg/util/templates"
-	corev1 "k8s.io/api/core/v1"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
 )
 
 const (
-	logsUsageStr = "logs [-f] [-p] (POD | TYPE/NAME) [-c CONTAINER] (--clusterName= | C )"
+	logsUsageStr = "logs [-f] [-p] (POD | TYPE/NAME) [-c CONTAINER]"
 )
 
 var (
 	logsLong = templates.LongDesc(i18n.T(`
-        !!!!!clusterName is required strictly!!!!! (--clusterName=| -C)
 		Print the logs for a container in a pod or specified resource. 
 		If the pod has only one container, the container name is optional.`))
 
@@ -88,16 +89,7 @@ var (
 	selectorTail    int64 = 10
 	logsUsageErrStr       = fmt.Sprintf("expected '%s'.\nPOD or TYPE/NAME is a required argument for the logs command", logsUsageStr)
 )
-var ConfigContent = []string{
-	"Config1",
-	"Config2",
-	"Config3",
-}
-var ClusterName = []string{
-	"Name1",
-	"Name2",
-	"Name3",
-}
+
 const (
 	defaultPodLogsTimeout = 20 * time.Second
 )
@@ -139,9 +131,7 @@ type LogsOptions struct {
 	TailSpecified bool
 
 	containerNameFromRefSpecRegexp *regexp.Regexp
-
 	ClusterName string
-	Configs map[string]string
 }
 
 func NewLogsOptions(streams genericclioptions.IOStreams, allContainers bool) *LogsOptions {
@@ -192,7 +182,6 @@ func (o *LogsOptions) AddFlags(cmd *cobra.Command) {
 	cmd.Flags().StringVarP(&o.Selector, "selector", "l", o.Selector, "Selector (label query) to filter on.")
 	cmd.Flags().IntVar(&o.MaxFollowConcurrency, "max-log-requests", o.MaxFollowConcurrency, "Specify maximum number of concurrent logs to follow when using by a selector. Defaults to 5.")
 	cmd.Flags().BoolVar(&o.Prefix, "prefix", o.Prefix, "Prefix each log line with the log source (pod name and container name)")
-	cmdutil.AddClusterVarFlags(cmd, &o.ClusterName, o.ClusterName)
 }
 
 func (o *LogsOptions) ToLogOptions() (*corev1.PodLogOptions, error) {
@@ -254,23 +243,13 @@ func (o *LogsOptions) Complete(f cmdutil.Factory, cmd *cobra.Command, args []str
 		return cmdutil.UsageErrorf(cmd, "%s", logsUsageErrStr)
 	}
 
-	o.Configs = make(map[string]string)
-	if len(ClusterName) != len(ConfigContent) {
-		return fmt.Errorf("the numbers of ClusterName and the ConfigContent is unmatched")
-	}
-	if len(ClusterName) == 0 || len(ConfigContent) == 0 {
-		return fmt.Errorf("fail to find configs to set")
-	}
-
-	for i := 0; i < len(ClusterName); i++ {
-		o.Configs[ClusterName[i]] = ConfigContent[i]
-	}
-
+	var s []string
+	s, _ = clientcmd.GetAllFile(clientcmd.RecommendedConfigDir, s)
 
 	if len(o.ClusterName) > 0 {
 		flag := false
-		for filename := range o.Configs {
-			if filename == o.ClusterName {
+		for _, name := range s {
+			if name == filepath.Join(clientcmd.RecommendedConfigDir, o.ClusterName) {
 				flag = true
 				break
 			}
@@ -278,12 +257,18 @@ func (o *LogsOptions) Complete(f cmdutil.Factory, cmd *cobra.Command, args []str
 		if !flag {
 			return fmt.Errorf("the clusterName can not be found")
 		}
+		ConfigContents, err := ioutil.ReadFile(filepath.Join(clientcmd.RecommendedConfigDir, o.ClusterName))
+		if err != nil {
+			return err
+		}
+		err = ioutil.WriteFile(clientcmd.RecommendedHomeFile, ConfigContents, 0666)
+		if err != nil {
+			return err
+		}
+
 	} else {
 		return fmt.Errorf("Please set the clusterName")
 	}
-
-	ClientConfig, _ := f.NewClientConfigFromBytesWithConfigFlags([]byte(o.Configs[o.ClusterName]))
-	f.SetClientConfig(&ClientConfig)
 
 	var err error
 	o.Namespace, _, err = f.ToRawKubeConfigLoader().Namespace()

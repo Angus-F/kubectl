@@ -23,7 +23,7 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/util/sets"
 	"k8s.io/apimachinery/pkg/util/strategicpatch"
-	"github.com/Angus-F/cli-runtime/pkg/resource"
+	"k8s.io/cli-runtime/pkg/resource"
 )
 
 // selectContainers allows one or more containers to be matched against a string or wildcard

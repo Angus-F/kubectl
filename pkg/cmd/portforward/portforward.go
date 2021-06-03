@@ -32,7 +32,7 @@ import (
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/util/sets"
-	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
+	"k8s.io/cli-runtime/pkg/genericclioptions"
 	"github.com/Angus-F/client-go/kubernetes/scheme"
 	corev1client "github.com/Angus-F/client-go/kubernetes/typed/core/v1"
 	restclient "github.com/Angus-F/client-go/rest"
@@ -61,7 +61,7 @@ type PortForwardOptions struct {
 
 var (
 	portforwardLong = templates.LongDesc(i18n.T(`
-                Forward one or more local ports to a pod. This command requires the node to have 'socat' installed.
+                Forward one or more local ports to a pod.
 
                 Use resource type/name such as deployment/mydeployment to select a pod. Resource type defaults to 'pod' if omitted.
 

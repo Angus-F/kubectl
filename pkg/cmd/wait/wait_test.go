@@ -31,9 +31,9 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/apimachinery/pkg/watch"
-	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
-	"github.com/Angus-F/cli-runtime/pkg/printers"
-	"github.com/Angus-F/cli-runtime/pkg/resource"
+	"k8s.io/cli-runtime/pkg/genericclioptions"
+	"k8s.io/cli-runtime/pkg/printers"
+	"k8s.io/cli-runtime/pkg/resource"
 	dynamicfakeclient "github.com/Angus-F/client-go/dynamic/fake"
 	clienttesting "github.com/Angus-F/client-go/testing"
 )

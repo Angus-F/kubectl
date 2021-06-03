@@ -23,7 +23,7 @@ import (
 	"testing"
 
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
+	"k8s.io/cli-runtime/pkg/genericclioptions"
 	restclient "github.com/Angus-F/client-go/rest"
 	"github.com/Angus-F/client-go/rest/fake"
 	cmdtesting "github.com/Angus-F/kubectl/pkg/cmd/testing"

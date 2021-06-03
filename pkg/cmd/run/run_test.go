@@ -34,7 +34,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/util/intstr"
-	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
+	"k8s.io/cli-runtime/pkg/genericclioptions"
 	restclient "github.com/Angus-F/client-go/rest"
 	"github.com/Angus-F/client-go/rest/fake"
 	"github.com/Angus-F/kubectl/pkg/cmd/delete"

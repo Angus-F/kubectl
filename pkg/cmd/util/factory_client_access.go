@@ -24,8 +24,8 @@ import (
 
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/meta"
-	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
-	"github.com/Angus-F/cli-runtime/pkg/resource"
+	"k8s.io/cli-runtime/pkg/genericclioptions"
+	"k8s.io/cli-runtime/pkg/resource"
 	"github.com/Angus-F/client-go/discovery"
 	"github.com/Angus-F/client-go/dynamic"
 	"github.com/Angus-F/client-go/kubernetes"
@@ -185,16 +185,4 @@ func (f *factoryImpl) OpenAPIGetter() discovery.OpenAPISchemaInterface {
 	})
 
 	return f.openAPIGetter
-}
-
-func (f *factoryImpl)SetClientConfig(clientConfig *clientcmd.ClientConfig) {
-	f.clientGetter.SetClientConfig(clientConfig)
-}
-
-func (f *factoryImpl)GetConfigFlags() *genericclioptions.ConfigFlags {
-	return f.clientGetter.GetConfigFlags()
-}
-
-func (f *factoryImpl)NewClientConfigFromBytesWithConfigFlags(configBytes []byte) (clientcmd.ClientConfig, error) {
-	return f.clientGetter.NewClientConfigFromBytesWithConfigFlags(configBytes)
 }

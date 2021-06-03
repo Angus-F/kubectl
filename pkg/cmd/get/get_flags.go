@@ -24,8 +24,8 @@ import (
 
 	"k8s.io/apimachinery/pkg/api/meta"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
-	"github.com/Angus-F/cli-runtime/pkg/printers"
+	"k8s.io/cli-runtime/pkg/genericclioptions"
+	"k8s.io/cli-runtime/pkg/printers"
 	"github.com/Angus-F/kubectl/pkg/util/openapi"
 )
 

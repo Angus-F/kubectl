@@ -23,6 +23,7 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
+	"github.com/Angus-F/client-go/tools/clientcmd"
 	"os"
 	"path"
 	"path/filepath"
@@ -31,21 +32,17 @@ import (
 	"github.com/lithammer/dedent"
 	"github.com/spf13/cobra"
 
-	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
+	"k8s.io/cli-runtime/pkg/genericclioptions"
 	"github.com/Angus-F/client-go/kubernetes"
 	restclient "github.com/Angus-F/client-go/rest"
-	"github.com/Angus-F/client-go/tools/clientcmd"
-	clientcmdapi "github.com/Angus-F/client-go/tools/clientcmd/api"
 	"github.com/Angus-F/kubectl/pkg/cmd/exec"
 	cmdutil "github.com/Angus-F/kubectl/pkg/cmd/util"
 	"github.com/Angus-F/kubectl/pkg/util/i18n"
 	"github.com/Angus-F/kubectl/pkg/util/templates"
-
 )
 
 var (
 	cpExample = templates.Examples(i18n.T(`
-        !!!!!clusterName is required strictly!!!!! (--clusterName=| -C)
 		# !!!Important Note!!!
 		# Requires that the 'tar' binary is present in your container
 		# image.  If 'tar' is not present, 'kubectl cp' will fail.
@@ -72,36 +69,24 @@ var (
 		kubectl cp <some-namespace>/<some-pod>:/tmp/foo /tmp/bar`))
 
 	cpUsageStr = dedent.Dedent(`
-		expected 'cp <file-spec-src> <file-spec-dest> [-c container] [-C clusterName]'.
+		expected 'cp <file-spec-src> <file-spec-dest> [-c container]'.
 		<file-spec> is:
 		[namespace/]pod-name:/file/path for a remote file
 		/file/path for a local file`)
 )
 
-var ConfigContent = []string{
-	"Config1",
-	"Config2",
-	"Config3",
-}
-var ClusterName = []string{
-	"Name1",
-	"Name2",
-	"Name3",
-}
 // CopyOptions have the data required to perform the copy operation
 type CopyOptions struct {
 	Container  string
 	Namespace  string
 	NoPreserve bool
 
-	ClusterName string
-
 	ClientConfig      *restclient.Config
 	Clientset         kubernetes.Interface
 	ExecParentCmdName string
 
 	genericclioptions.IOStreams
-	Configs map[string]string
+	ClusterName string
 }
 
 // NewCopyOptions creates the options for copy
@@ -116,18 +101,18 @@ func NewCmdCp(f cmdutil.Factory, ioStreams genericclioptions.IOStreams) *cobra.C
 	o := NewCopyOptions(ioStreams)
 
 	cmd := &cobra.Command{
-		Use:                   "cp <file-spec-src> <file-spec-dest> (clusterName is required strictly)",
+		Use:                   "cp <file-spec-src> <file-spec-dest>",
 		DisableFlagsInUseLine: true,
 		Short:                 i18n.T("Copy files and directories to and from containers."),
 		Long:                  i18n.T("Copy files and directories to and from containers."),
 		Example:               cpExample,
 		Run: func(cmd *cobra.Command, args []string) {
 			cmdutil.CheckErr(o.Complete(f, cmd))
-			cmdutil.CheckErr(o.Run(cmd, args))
+			cmdutil.CheckErr(o.Run(args))
 		},
 	}
-	cmdutil.AddContainerVarFlags(cmd, &o.Container, o.Container)
 	cmdutil.AddClusterVarFlags(cmd, &o.ClusterName, o.ClusterName)
+	cmdutil.AddContainerVarFlags(cmd, &o.Container, o.Container)
 	cmd.Flags().BoolVarP(&o.NoPreserve, "no-preserve", "", false, "The copied file/directory's ownership and permissions will not be preserved in the container")
 
 	return cmd
@@ -143,7 +128,6 @@ var (
 	errFileSpecDoesntMatchFormat = errors.New("filespec must match the canonical format: [[namespace/]pod:]file/path")
 	errFileCannotBeEmpty         = errors.New("filepath can not be empty")
 )
-
 
 func extractFileSpec(arg string) (fileSpec, error) {
 	i := strings.Index(arg, ":")
@@ -180,22 +164,14 @@ func (o *CopyOptions) Complete(f cmdutil.Factory, cmd *cobra.Command) error {
 	if cmd.Parent() != nil {
 		o.ExecParentCmdName = cmd.Parent().CommandPath()
 	}
-	o.Configs = make(map[string]string)
-	if len(ClusterName) != len(ConfigContent) {
-		return fmt.Errorf("the numbers of ClusterName and the ConfigContent is unmatched")
-	}
-	if len(ClusterName) == 0 || len(ConfigContent) == 0 {
-		return fmt.Errorf("fail to find configs to set")
-	}
 
-	for i := 0; i < len(ClusterName); i++ {
-		o.Configs[ClusterName[i]] = ConfigContent[i]
-	}
+	var s []string
+	s, _ = clientcmd.GetAllFile(clientcmd.RecommendedConfigDir, s)
 
 	if len(o.ClusterName) > 0 {
 		flag := false
-		for filename := range o.Configs {
-			if filename == o.ClusterName {
+		for _, name := range s {
+			if name == filepath.Join(clientcmd.RecommendedConfigDir, o.ClusterName) {
 				flag = true
 				break
 			}
@@ -203,32 +179,20 @@ func (o *CopyOptions) Complete(f cmdutil.Factory, cmd *cobra.Command) error {
 		if !flag {
 			return fmt.Errorf("the clusterName can not be found")
 		}
+		ConfigContents, err := ioutil.ReadFile(filepath.Join(clientcmd.RecommendedConfigDir, o.ClusterName))
+		if err != nil {
+			return err
+		}
+		err = ioutil.WriteFile(clientcmd.RecommendedHomeFile, ConfigContents, 0666)
+		if err != nil {
+			return err
+		}
+
 	} else {
 		return fmt.Errorf("Please set the clusterName")
 	}
 
-	NewDirectClientConfig, err := clientcmd.NewClientConfigFromBytes([]byte(o.Configs[o.ClusterName]))
-	if err != nil {
-		return err
-	}
-	o.Namespace, _, err = NewDirectClientConfig.Namespace()
-	if err != nil {
-		return err
-	}
-
-
-	o.ClientConfig, err = clientcmd.RESTConfigFromKubeConfigWithDefaultSet([]byte(o.Configs[o.ClusterName]))
-	if err != nil {
-		return err
-	}
-
-
-	o.Clientset, err = kubernetes.NewForConfig(o.ClientConfig)
-	if err != nil {
-		return err
-	}
-
-	/**
+	var err error
 	o.Namespace, _, err = f.ToRawKubeConfigLoader().Namespace()
 	if err != nil {
 		return err
@@ -243,8 +207,6 @@ func (o *CopyOptions) Complete(f cmdutil.Factory, cmd *cobra.Command) error {
 	if err != nil {
 		return err
 	}
-	*/
-
 	return nil
 }
 
@@ -257,11 +219,7 @@ func (o *CopyOptions) Validate(cmd *cobra.Command, args []string) error {
 }
 
 // Run performs the execution
-func (o *CopyOptions) Run(cmd *cobra.Command, args []string) error {
-	err := o.Validate(cmd, args)
-	if err != nil {
-		return err
-	}
+func (o *CopyOptions) Run(args []string) error {
 	if len(args) < 2 {
 		return fmt.Errorf("source and destination are required")
 	}
@@ -273,9 +231,11 @@ func (o *CopyOptions) Run(cmd *cobra.Command, args []string) error {
 	if err != nil {
 		return err
 	}
+
 	if len(srcSpec.PodName) != 0 && len(destSpec.PodName) != 0 {
 		return fmt.Errorf("one of src or dest must be a local file specification")
 	}
+
 	if len(srcSpec.PodName) != 0 {
 		return o.copyFromPod(srcSpec, destSpec)
 	}
@@ -366,6 +326,7 @@ func (o *CopyOptions) copyFromPod(src, dest fileSpec) error {
 	if len(src.File) == 0 || len(dest.File) == 0 {
 		return errFileCannotBeEmpty
 	}
+
 	reader, outStream := io.Pipe()
 	options := &exec.ExecOptions{
 		StreamOptions: exec.StreamOptions{
@@ -383,6 +344,7 @@ func (o *CopyOptions) copyFromPod(src, dest fileSpec) error {
 		Command:  []string{"tar", "cf", "-", src.File},
 		Executor: &exec.DefaultRemoteExecutor{},
 	}
+
 	go func() {
 		defer outStream.Close()
 		cmdutil.CheckErr(o.execute(options))
@@ -509,6 +471,7 @@ func (o *CopyOptions) untarAll(src fileSpec, reader io.Reader, destDir, prefix s
 			}
 			break
 		}
+
 		// All the files will start with the prefix, which is the directory where
 		// they were located on the pod, we need to strip down that prefix, but
 		// if the prefix is missing it means the tar was tempered with.
@@ -517,13 +480,16 @@ func (o *CopyOptions) untarAll(src fileSpec, reader io.Reader, destDir, prefix s
 		if !strings.HasPrefix(header.Name, prefix) {
 			return fmt.Errorf("tar contents corrupted")
 		}
+
 		// basic file information
 		mode := header.FileInfo().Mode()
 		destFileName := filepath.Join(destDir, header.Name[len(prefix):])
+
 		if !isDestRelative(destDir, destFileName) {
 			fmt.Fprintf(o.IOStreams.ErrOut, "warning: file %q is outside target destination, skipping\n", destFileName)
 			continue
 		}
+
 		baseName := filepath.Dir(destFileName)
 		if err := os.MkdirAll(baseName, 0755); err != nil {
 			return err
@@ -534,6 +500,7 @@ func (o *CopyOptions) untarAll(src fileSpec, reader io.Reader, destDir, prefix s
 			}
 			continue
 		}
+
 		if mode&os.ModeSymlink != 0 {
 			if !symlinkWarningPrinted && len(o.ExecParentCmdName) > 0 {
 				fmt.Fprintf(o.IOStreams.ErrOut, "warning: skipping symlink: %q -> %q (consider using \"%s exec -n %q %q -- tar cf - %q | tar xf -\")\n", destFileName, header.Linkname, o.ExecParentCmdName, src.PodNamespace, src.PodName, src.File)
@@ -555,6 +522,7 @@ func (o *CopyOptions) untarAll(src fileSpec, reader io.Reader, destDir, prefix s
 			return err
 		}
 	}
+
 	return nil
 }
 
@@ -593,17 +561,4 @@ func (o *CopyOptions) execute(options *exec.ExecOptions) error {
 		return err
 	}
 	return nil
-}
-
-func isClusterInContext(ClusterName string, config *clientcmdapi.Config) (string, bool) {
-	for contextName, context := range config.Contexts {
-		if ClusterName == context.Cluster {
-			return contextName, true
-		}
-	}
-	return "", false
-}
-
-func (o *CopyOptions) SetClusterName(clusterName string) {
-	o.ClusterName = clusterName
 }

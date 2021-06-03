@@ -28,7 +28,7 @@ import (
 	"github.com/Angus-F/client-go/tools/clientcmd"
 	"github.com/Angus-F/kubectl/pkg/scheme"
 
-	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
+	"k8s.io/cli-runtime/pkg/genericclioptions"
 	"k8s.io/component-base/version"
 )
 
@@ -126,16 +126,4 @@ func setKubernetesDefaults(config *rest.Config) error {
 		config.NegotiatedSerializer = scheme.Codecs.WithoutConversion()
 	}
 	return rest.SetKubernetesDefaults(config)
-}
-
-func (f *MatchVersionFlags)SetClientConfig(clientConfig *clientcmd.ClientConfig) {
-	f.Delegate.SetClientConfig(clientConfig)
-}
-
-func (f *MatchVersionFlags)GetConfigFlags() *genericclioptions.ConfigFlags {
-	return f.Delegate.GetConfigFlags()
-}
-
-func (f *MatchVersionFlags)NewClientConfigFromBytesWithConfigFlags(configBytes []byte) (clientcmd.ClientConfig, error) {
-	return f.Delegate.NewClientConfigFromBytesWithConfigFlags(configBytes)
 }

@@ -34,7 +34,7 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	utilerrors "k8s.io/apimachinery/pkg/util/errors"
 	"k8s.io/apimachinery/pkg/util/wait"
-	"github.com/Angus-F/cli-runtime/pkg/resource"
+	"k8s.io/cli-runtime/pkg/resource"
 	"github.com/Angus-F/client-go/kubernetes"
 	cmdutil "github.com/Angus-F/kubectl/pkg/cmd/util"
 )

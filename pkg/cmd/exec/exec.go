@@ -19,20 +19,21 @@ package exec
 import (
 	"context"
 	"fmt"
-	clientcmdapi "github.com/Angus-F/client-go/tools/clientcmd/api"
 	"io"
+	"io/ioutil"
 	"net/url"
+	"path/filepath"
 	"time"
 
-	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
-	"github.com/Angus-F/cli-runtime/pkg/resource"
-	coreclient "github.com/Angus-F/client-go/kubernetes/typed/core/v1"
-	restclient "github.com/Angus-F/client-go/rest"
-	"github.com/Angus-F/client-go/tools/remotecommand"
 	dockerterm "github.com/moby/term"
 	"github.com/spf13/cobra"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/cli-runtime/pkg/genericclioptions"
+	"k8s.io/cli-runtime/pkg/resource"
+	coreclient "github.com/Angus-F/client-go/kubernetes/typed/core/v1"
+	restclient "github.com/Angus-F/client-go/rest"
+	"github.com/Angus-F/client-go/tools/remotecommand"
 
 	cmdutil "github.com/Angus-F/kubectl/pkg/cmd/util"
 	"github.com/Angus-F/kubectl/pkg/cmd/util/podcmd"
@@ -46,8 +47,6 @@ import (
 
 var (
 	execExample = templates.Examples(i18n.T(`
-        !!!!!clusterName is required strictly!!!!! (--clusterName=| -C)
-
 		# Get output from running 'date' command from pod mypod, using the first container by default
 		kubectl exec mypod -- date
 
@@ -73,17 +72,6 @@ var (
 		`))
 )
 
-var ConfigContent = []string{
-	"Config1",
-	"Config2",
-	"Config3",
-}
-var ClusterName = []string{
-	"Name1",
-	"Name2",
-	"Name3",
-}
-
 const (
 	defaultPodExecTimeout = 60 * time.Second
 )
@@ -93,10 +81,11 @@ func NewCmdExec(f cmdutil.Factory, streams genericclioptions.IOStreams) *cobra.C
 		StreamOptions: StreamOptions{
 			IOStreams: streams,
 		},
+
 		Executor: &DefaultRemoteExecutor{},
 	}
 	cmd := &cobra.Command{
-		Use:                   "exec (POD | TYPE/NAME) [-c CONTAINER] [-C CLUSTER] [flags] -- COMMAND [args...]",
+		Use:                   "exec (POD | TYPE/NAME) [-c CONTAINER] [flags] -- COMMAND [args...]",
 		DisableFlagsInUseLine: true,
 		Short:                 i18n.T("Execute a command in a container"),
 		Long:                  i18n.T("Execute a command in a container."),
@@ -112,7 +101,6 @@ func NewCmdExec(f cmdutil.Factory, streams genericclioptions.IOStreams) *cobra.C
 	cmdutil.AddJsonFilenameFlag(cmd.Flags(), &options.FilenameOptions.Filenames, "to use to exec into the resource")
 	// TODO support UID
 	cmdutil.AddContainerVarFlags(cmd, &options.ContainerName, options.ContainerName)
-	cmdutil.AddClusterVarFlags(cmd, &options.ClusterName, options.ClusterName)
 	cmd.Flags().BoolVarP(&options.Stdin, "stdin", "i", options.Stdin, "Pass stdin to the container")
 	cmd.Flags().BoolVarP(&options.TTY, "tty", "t", options.TTY, "Stdin is a TTY")
 	cmd.Flags().BoolVarP(&options.Quiet, "quiet", "q", options.Quiet, "Only print output from the remote session")
@@ -164,7 +152,6 @@ type ExecOptions struct {
 	StreamOptions
 	resource.FilenameOptions
 
-	ClusterName      string
 	ResourceName     string
 	Command          []string
 	EnforceNamespace bool
@@ -178,7 +165,7 @@ type ExecOptions struct {
 	PodClient     coreclient.PodsGetter
 	GetPodTimeout time.Duration
 	Config        *restclient.Config
-	Configs map[string]string
+	ClusterName string
 }
 
 // Complete verifies command line arguments and loads data from the command environment
@@ -201,22 +188,13 @@ func (p *ExecOptions) Complete(f cmdutil.Factory, cmd *cobra.Command, argsIn []s
 		p.ResourceName = ""
 	}
 
-	p.Configs = make(map[string]string)
-	if len(ClusterName) != len(ConfigContent) {
-		return fmt.Errorf("the numbers of ClusterName and the ConfigContent is unmatched")
-	}
-	if len(ClusterName) == 0 || len(ConfigContent) == 0 {
-		return fmt.Errorf("fail to find configs to set")
-	}
-
-	for i := 0; i < len(ClusterName); i++ {
-		p.Configs[ClusterName[i]] = ConfigContent[i]
-	}
+	var s []string
+	s, _ = clientcmd.GetAllFile(clientcmd.RecommendedConfigDir, s)
 
 	if len(p.ClusterName) > 0 {
 		flag := false
-		for filename := range p.Configs {
-			if filename == p.ClusterName {
+		for _, name := range s {
+			if name == filepath.Join(clientcmd.RecommendedConfigDir, p.ClusterName) {
 				flag = true
 				break
 			}
@@ -224,23 +202,32 @@ func (p *ExecOptions) Complete(f cmdutil.Factory, cmd *cobra.Command, argsIn []s
 		if !flag {
 			return fmt.Errorf("the clusterName can not be found")
 		}
+		ConfigContents, err := ioutil.ReadFile(filepath.Join(clientcmd.RecommendedConfigDir, p.ClusterName))
+		if err != nil {
+			return err
+		}
+		err = ioutil.WriteFile(clientcmd.RecommendedHomeFile, ConfigContents, 0666)
+		if err != nil {
+			return err
+		}
+
 	} else {
 		return fmt.Errorf("Please set the clusterName")
 	}
 
-	ClientConfig, _ := f.NewClientConfigFromBytesWithConfigFlags([]byte(p.Configs[p.ClusterName]))
-	f.SetClientConfig(&ClientConfig)
 	var err error
 	p.Namespace, p.EnforceNamespace, err = f.ToRawKubeConfigLoader().Namespace()
 	if err != nil {
 		return err
 	}
+
 	p.ExecutablePodFn = polymorphichelpers.AttachablePodForObjectFn
 
 	p.GetPodTimeout, err = cmdutil.GetPodRunningTimeoutFlag(cmd)
 	if err != nil {
 		return cmdutil.UsageErrorf(cmd, err.Error())
 	}
+
 	p.Builder = f.NewBuilder
 	p.restClientGetter = f
 
@@ -248,11 +235,13 @@ func (p *ExecOptions) Complete(f cmdutil.Factory, cmd *cobra.Command, argsIn []s
 	if err != nil {
 		return err
 	}
+
 	clientset, err := f.KubernetesClientSet()
 	if err != nil {
 		return err
 	}
 	p.PodClient = clientset.CoreV1()
+
 	return nil
 }
 
@@ -341,20 +330,24 @@ func (p *ExecOptions) Run() error {
 		if len(p.ResourceName) > 0 {
 			builder = builder.ResourceNames("pods", p.ResourceName)
 		}
+
 		obj, err := builder.Do().Object()
 		if err != nil {
 			return err
 		}
+
 		p.Pod, err = p.ExecutablePodFn(p.restClientGetter, obj, p.GetPodTimeout)
 		if err != nil {
 			return err
 		}
 	}
+
 	pod := p.Pod
 
 	if pod.Status.Phase == corev1.PodSucceeded || pod.Status.Phase == corev1.PodFailed {
 		return fmt.Errorf("cannot exec into a container in a completed pod; current phase is %s", pod.Status.Phase)
 	}
+
 	containerName := p.ContainerName
 	if len(containerName) == 0 {
 		container, err := podcmd.FindOrDefaultContainerByName(pod, containerName, p.Quiet, p.ErrOut)
@@ -363,8 +356,10 @@ func (p *ExecOptions) Run() error {
 		}
 		containerName = container.Name
 	}
+
 	// ensure we can recover the terminal while attached
 	t := p.SetupTTY()
+
 	var sizeQueue remotecommand.TerminalSizeQueue
 	if t.Raw {
 		// this call spawns a goroutine to monitor/update the terminal size
@@ -374,6 +369,7 @@ func (p *ExecOptions) Run() error {
 		// true
 		p.ErrOut = nil
 	}
+
 	fn := func() error {
 		restClient, err := restclient.RESTClientFor(p.Config)
 		if err != nil {
@@ -397,17 +393,10 @@ func (p *ExecOptions) Run() error {
 
 		return p.Executor.Execute("POST", req.URL(), p.Config, p.In, p.Out, p.ErrOut, t.Raw, sizeQueue)
 	}
+
 	if err := t.Safe(fn); err != nil {
 		return err
 	}
-	return nil
-}
 
-func isClusterInContext(ClusterName string, config *clientcmdapi.Config) (string, bool) {
-	for contextName, context := range config.Contexts {
-		if ClusterName == context.Cluster {
-			return contextName, true
-		}
-	}
-	return "", false
+	return nil
 }

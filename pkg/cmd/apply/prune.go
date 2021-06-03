@@ -27,7 +27,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/util/sets"
-	"github.com/Angus-F/cli-runtime/pkg/printers"
+	"k8s.io/cli-runtime/pkg/printers"
 	"github.com/Angus-F/client-go/dynamic"
 	cmdutil "github.com/Angus-F/kubectl/pkg/cmd/util"
 )
@@ -184,7 +184,7 @@ func getRESTMappings(mapper meta.RESTMapper, pruneResources *[]pruneResource) (n
 			{"", "v1", "Secret", true},
 			{"", "v1", "Service", true},
 			{"batch", "v1", "Job", true},
-			{"batch", "v1beta1", "CronJob", true},
+			{"batch", "v1", "CronJob", true},
 			{"networking.k8s.io", "v1", "Ingress", true},
 			{"apps", "v1", "DaemonSet", true},
 			{"apps", "v1", "Deployment", true},
