@@ -19,23 +19,20 @@ package exec
 import (
 	"context"
 	"fmt"
-	"io"
-	"io/ioutil"
-	"github.com/Angus-F/client-go/tools/clientcmd"
 	clientcmdapi "github.com/Angus-F/client-go/tools/clientcmd/api"
+	"io"
 	"net/url"
-	"path/filepath"
 	"time"
 
-	dockerterm "github.com/moby/term"
-	"github.com/spf13/cobra"
-	corev1 "k8s.io/api/core/v1"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
 	"github.com/Angus-F/cli-runtime/pkg/resource"
 	coreclient "github.com/Angus-F/client-go/kubernetes/typed/core/v1"
 	restclient "github.com/Angus-F/client-go/rest"
 	"github.com/Angus-F/client-go/tools/remotecommand"
+	dockerterm "github.com/moby/term"
+	"github.com/spf13/cobra"
+	corev1 "k8s.io/api/core/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
 	cmdutil "github.com/Angus-F/kubectl/pkg/cmd/util"
 	"github.com/Angus-F/kubectl/pkg/cmd/util/podcmd"
@@ -75,6 +72,17 @@ var (
 		kubectl exec svc/myservice -- date
 		`))
 )
+
+var ConfigContent = []string{
+	"Config1",
+	"Config2",
+	"Config3",
+}
+var ClusterName = []string{
+	"Name1",
+	"Name2",
+	"Name3",
+}
 
 const (
 	defaultPodExecTimeout = 60 * time.Second
@@ -170,7 +178,7 @@ type ExecOptions struct {
 	PodClient     coreclient.PodsGetter
 	GetPodTimeout time.Duration
 	Config        *restclient.Config
-	Configs map[string][]byte
+	Configs map[string]string
 }
 
 // Complete verifies command line arguments and loads data from the command environment
@@ -192,22 +200,23 @@ func (p *ExecOptions) Complete(f cmdutil.Factory, cmd *cobra.Command, argsIn []s
 		p.Command = argsIn[0:]
 		p.ResourceName = ""
 	}
-	var s []string
-	s, _ = clientcmd.GetAllFile(clientcmd.RecommendedConfigDir, s)
-	p.Configs = make(map[string][]byte)
-	for _, filename := range s {
-		ConfigContents, err := ioutil.ReadFile(filename)
-		if err != nil {
-			return err
-		}
-		p.Configs[filename] = ConfigContents
+
+	p.Configs = make(map[string]string)
+	if len(ClusterName) != len(ConfigContent) {
+		return fmt.Errorf("the numbers of ClusterName and the ConfigContent is unmatched")
+	}
+	if len(ClusterName) == 0 || len(ConfigContent) == 0 {
+		return fmt.Errorf("fail to find configs to set")
 	}
 
+	for i := 0; i < len(ClusterName); i++ {
+		p.Configs[ClusterName[i]] = ConfigContent[i]
+	}
 
 	if len(p.ClusterName) > 0 {
 		flag := false
 		for filename := range p.Configs {
-			if filename == filepath.Join(clientcmd.RecommendedConfigDir, p.ClusterName) {
+			if filename == p.ClusterName {
 				flag = true
 				break
 			}
@@ -219,7 +228,7 @@ func (p *ExecOptions) Complete(f cmdutil.Factory, cmd *cobra.Command, argsIn []s
 		return fmt.Errorf("Please set the clusterName")
 	}
 
-	ClientConfig, _ := f.NewClientConfigFromBytesWithConfigFlags(p.Configs[filepath.Join(clientcmd.RecommendedConfigDir, p.ClusterName)])
+	ClientConfig, _ := f.NewClientConfigFromBytesWithConfigFlags([]byte(p.Configs[p.ClusterName]))
 	f.SetClientConfig(&ClientConfig)
 	var err error
 	p.Namespace, p.EnforceNamespace, err = f.ToRawKubeConfigLoader().Namespace()

@@ -21,19 +21,13 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/Angus-F/client-go/tools/clientcmd"
 	"io"
-	"io/ioutil"
-	"path/filepath"
 	"regexp"
 	"sync"
 	"time"
 
 	"github.com/spf13/cobra"
 
-	corev1 "k8s.io/api/core/v1"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
 	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
 	"github.com/Angus-F/client-go/rest"
 	cmdutil "github.com/Angus-F/kubectl/pkg/cmd/util"
@@ -42,6 +36,9 @@ import (
 	"github.com/Angus-F/kubectl/pkg/util"
 	"github.com/Angus-F/kubectl/pkg/util/i18n"
 	"github.com/Angus-F/kubectl/pkg/util/templates"
+	corev1 "k8s.io/api/core/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/runtime"
 )
 
 const (
@@ -91,7 +88,16 @@ var (
 	selectorTail    int64 = 10
 	logsUsageErrStr       = fmt.Sprintf("expected '%s'.\nPOD or TYPE/NAME is a required argument for the logs command", logsUsageStr)
 )
-
+var ConfigContent = []string{
+	"Config1",
+	"Config2",
+	"Config3",
+}
+var ClusterName = []string{
+	"Name1",
+	"Name2",
+	"Name3",
+}
 const (
 	defaultPodLogsTimeout = 20 * time.Second
 )
@@ -135,7 +141,7 @@ type LogsOptions struct {
 	containerNameFromRefSpecRegexp *regexp.Regexp
 
 	ClusterName string
-	Configs map[string][]byte
+	Configs map[string]string
 }
 
 func NewLogsOptions(streams genericclioptions.IOStreams, allContainers bool) *LogsOptions {
@@ -248,22 +254,23 @@ func (o *LogsOptions) Complete(f cmdutil.Factory, cmd *cobra.Command, args []str
 		return cmdutil.UsageErrorf(cmd, "%s", logsUsageErrStr)
 	}
 
-	var s []string
-	s, _ = clientcmd.GetAllFile(clientcmd.RecommendedConfigDir, s)
-	o.Configs = make(map[string][]byte)
-	for _, filename := range s {
-		ConfigContents, err := ioutil.ReadFile(filename)
-		if err != nil {
-			return err
-		}
-		o.Configs[filename] = ConfigContents
+	o.Configs = make(map[string]string)
+	if len(ClusterName) != len(ConfigContent) {
+		return fmt.Errorf("the numbers of ClusterName and the ConfigContent is unmatched")
+	}
+	if len(ClusterName) == 0 || len(ConfigContent) == 0 {
+		return fmt.Errorf("fail to find configs to set")
+	}
+
+	for i := 0; i < len(ClusterName); i++ {
+		o.Configs[ClusterName[i]] = ConfigContent[i]
 	}
 
 
 	if len(o.ClusterName) > 0 {
 		flag := false
 		for filename := range o.Configs {
-			if filename == filepath.Join(clientcmd.RecommendedConfigDir, o.ClusterName) {
+			if filename == o.ClusterName {
 				flag = true
 				break
 			}
@@ -275,7 +282,7 @@ func (o *LogsOptions) Complete(f cmdutil.Factory, cmd *cobra.Command, args []str
 		return fmt.Errorf("Please set the clusterName")
 	}
 
-	ClientConfig, _ := f.NewClientConfigFromBytesWithConfigFlags(o.Configs[filepath.Join(clientcmd.RecommendedConfigDir, o.ClusterName)])
+	ClientConfig, _ := f.NewClientConfigFromBytesWithConfigFlags([]byte(o.Configs[o.ClusterName]))
 	f.SetClientConfig(&ClientConfig)
 
 	var err error

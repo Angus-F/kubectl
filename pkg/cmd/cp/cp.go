@@ -40,6 +40,7 @@ import (
 	cmdutil "github.com/Angus-F/kubectl/pkg/cmd/util"
 	"github.com/Angus-F/kubectl/pkg/util/i18n"
 	"github.com/Angus-F/kubectl/pkg/util/templates"
+
 )
 
 var (
@@ -77,6 +78,16 @@ var (
 		/file/path for a local file`)
 )
 
+var ConfigContent = []string{
+	"Config1",
+	"Config2",
+	"Config3",
+}
+var ClusterName = []string{
+	"Name1",
+	"Name2",
+	"Name3",
+}
 // CopyOptions have the data required to perform the copy operation
 type CopyOptions struct {
 	Container  string
@@ -90,7 +101,7 @@ type CopyOptions struct {
 	ExecParentCmdName string
 
 	genericclioptions.IOStreams
-	Configs map[string][]byte
+	Configs map[string]string
 }
 
 // NewCopyOptions creates the options for copy
@@ -169,22 +180,22 @@ func (o *CopyOptions) Complete(f cmdutil.Factory, cmd *cobra.Command) error {
 	if cmd.Parent() != nil {
 		o.ExecParentCmdName = cmd.Parent().CommandPath()
 	}
-	var s []string
-	s, _ = clientcmd.GetAllFile(clientcmd.RecommendedConfigDir, s)
-	o.Configs = make(map[string][]byte)
-	for _, filename := range s {
-		ConfigContents, err := ioutil.ReadFile(filename)
-		if err != nil {
-			return err
-		}
-		o.Configs[filename] = ConfigContents
+	o.Configs = make(map[string]string)
+	if len(ClusterName) != len(ConfigContent) {
+		return fmt.Errorf("the numbers of ClusterName and the ConfigContent is unmatched")
+	}
+	if len(ClusterName) == 0 || len(ConfigContent) == 0 {
+		return fmt.Errorf("fail to find configs to set")
 	}
 
+	for i := 0; i < len(ClusterName); i++ {
+		o.Configs[ClusterName[i]] = ConfigContent[i]
+	}
 
 	if len(o.ClusterName) > 0 {
 		flag := false
 		for filename := range o.Configs {
-			if filename == filepath.Join(clientcmd.RecommendedConfigDir, o.ClusterName) {
+			if filename == o.ClusterName {
 				flag = true
 				break
 			}
@@ -196,10 +207,7 @@ func (o *CopyOptions) Complete(f cmdutil.Factory, cmd *cobra.Command) error {
 		return fmt.Errorf("Please set the clusterName")
 	}
 
-
-
-
-	NewDirectClientConfig, err := clientcmd.NewClientConfigFromBytes(o.Configs[filepath.Join(clientcmd.RecommendedConfigDir, o.ClusterName)])
+	NewDirectClientConfig, err := clientcmd.NewClientConfigFromBytes([]byte(o.Configs[o.ClusterName]))
 	if err != nil {
 		return err
 	}
@@ -209,7 +217,7 @@ func (o *CopyOptions) Complete(f cmdutil.Factory, cmd *cobra.Command) error {
 	}
 
 
-	o.ClientConfig, err = clientcmd.RESTConfigFromKubeConfigWithDefaultSet(o.Configs[filepath.Join(clientcmd.RecommendedConfigDir, o.ClusterName)])
+	o.ClientConfig, err = clientcmd.RESTConfigFromKubeConfigWithDefaultSet([]byte(o.Configs[o.ClusterName]))
 	if err != nil {
 		return err
 	}
