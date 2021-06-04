@@ -21,7 +21,7 @@ import (
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
-	"k8s.io/cli-runtime/pkg/printers"
+	"github.com/Angus-F/cli-runtime/pkg/printers"
 )
 
 // skipPrinter allows conditionally suppressing object output via the output field.

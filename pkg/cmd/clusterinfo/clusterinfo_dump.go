@@ -28,8 +28,8 @@ import (
 
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/cli-runtime/pkg/genericclioptions"
-	"k8s.io/cli-runtime/pkg/printers"
+	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
+	"github.com/Angus-F/cli-runtime/pkg/printers"
 	appsv1client "github.com/Angus-F/client-go/kubernetes/typed/apps/v1"
 	corev1client "github.com/Angus-F/client-go/kubernetes/typed/core/v1"
 	cmdutil "github.com/Angus-F/kubectl/pkg/cmd/util"

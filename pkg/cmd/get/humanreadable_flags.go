@@ -18,10 +18,10 @@ package get
 
 import (
 	"github.com/spf13/cobra"
-	"k8s.io/cli-runtime/pkg/genericclioptions"
+	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
 
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"k8s.io/cli-runtime/pkg/printers"
+	"github.com/Angus-F/cli-runtime/pkg/printers"
 )
 
 // HumanPrintFlags provides default flags necessary for printing.

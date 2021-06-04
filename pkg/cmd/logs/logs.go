@@ -21,6 +21,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"github.com/Angus-F/client-go/tools/clientcmd"
 	"io"
 	"io/ioutil"
 	"path/filepath"
@@ -33,7 +34,7 @@ import (
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
-	"k8s.io/cli-runtime/pkg/genericclioptions"
+	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
 	"github.com/Angus-F/client-go/rest"
 	cmdutil "github.com/Angus-F/kubectl/pkg/cmd/util"
 	"github.com/Angus-F/kubectl/pkg/polymorphichelpers"
@@ -182,6 +183,7 @@ func (o *LogsOptions) AddFlags(cmd *cobra.Command) {
 	cmd.Flags().StringVarP(&o.Selector, "selector", "l", o.Selector, "Selector (label query) to filter on.")
 	cmd.Flags().IntVar(&o.MaxFollowConcurrency, "max-log-requests", o.MaxFollowConcurrency, "Specify maximum number of concurrent logs to follow when using by a selector. Defaults to 5.")
 	cmd.Flags().BoolVar(&o.Prefix, "prefix", o.Prefix, "Prefix each log line with the log source (pod name and container name)")
+	cmdutil.AddClusterVarFlags(cmd, &o.ClusterName, o.ClusterName)
 }
 
 func (o *LogsOptions) ToLogOptions() (*corev1.PodLogOptions, error) {

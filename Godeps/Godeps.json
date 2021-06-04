@@ -983,7 +983,7 @@
 			"Rev": "1e82f3b632c6"
 		},
 		{
-			"ImportPath": "k8s.io/cli-runtime",
+			"ImportPath": "github.com/Angus-F/cli-runtime",
 			"Rev": "6ac34f0f28df"
 		},
 		{
@@ -999,7 +999,7 @@
 			"Rev": "4ceecfef9988"
 		},
 		{
-			"ImportPath": "k8s.io/component-helpers",
+			"ImportPath": "github.com/Angus-F/component-helpers",
 			"Rev": "8f7f89d23351"
 		},
 		{
@@ -1015,7 +1015,7 @@
 			"Rev": "95288971da7e"
 		},
 		{
-			"ImportPath": "k8s.io/metrics",
+			"ImportPath": "github.com/Angus-F/metrics",
 			"Rev": "45ac72778a18"
 		},
 		{

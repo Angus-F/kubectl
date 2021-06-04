@@ -25,7 +25,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"k8s.io/cli-runtime/pkg/genericclioptions"
+	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
 	restclient "github.com/Angus-F/client-go/rest"
 	"github.com/Angus-F/client-go/rest/fake"
 	cmdtesting "github.com/Angus-F/kubectl/pkg/cmd/testing"

@@ -23,7 +23,7 @@ import (
 	rbacv1 "k8s.io/api/rbac/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
-	"k8s.io/cli-runtime/pkg/resource"
+	"github.com/Angus-F/cli-runtime/pkg/resource"
 	cmdtesting "github.com/Angus-F/kubectl/pkg/cmd/testing"
 )
 

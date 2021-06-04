@@ -25,7 +25,7 @@ import (
 	"sigs.k8s.io/yaml"
 
 	apimachineryversion "k8s.io/apimachinery/pkg/version"
-	"k8s.io/cli-runtime/pkg/genericclioptions"
+	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
 	"github.com/Angus-F/client-go/discovery"
 	"github.com/Angus-F/client-go/tools/clientcmd"
 	"k8s.io/component-base/version"

@@ -21,7 +21,7 @@ import (
 	"strings"
 	"testing"
 
-	"k8s.io/cli-runtime/pkg/genericclioptions"
+	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
 	"github.com/Angus-F/client-go/tools/clientcmd"
 	clientcmdapi "github.com/Angus-F/client-go/tools/clientcmd/api"
 	cmdtesting "github.com/Angus-F/kubectl/pkg/cmd/testing"

@@ -28,7 +28,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	intstrutil "k8s.io/apimachinery/pkg/util/intstr"
-	runtimeresource "k8s.io/cli-runtime/pkg/resource"
+	runtimeresource "github.com/Angus-F/cli-runtime/pkg/resource"
 	appsclient "github.com/Angus-F/client-go/kubernetes/typed/apps/v1"
 )
 

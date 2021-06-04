@@ -29,7 +29,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/util/intstr"
-	"k8s.io/cli-runtime/pkg/genericclioptions"
+	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
 	"github.com/Angus-F/client-go/rest/fake"
 	cmdtesting "github.com/Angus-F/kubectl/pkg/cmd/testing"
 	"github.com/Angus-F/kubectl/pkg/scheme"

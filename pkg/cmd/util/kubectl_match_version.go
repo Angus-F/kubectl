@@ -28,7 +28,7 @@ import (
 	"github.com/Angus-F/client-go/tools/clientcmd"
 	"github.com/Angus-F/kubectl/pkg/scheme"
 
-	"k8s.io/cli-runtime/pkg/genericclioptions"
+	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
 	"k8s.io/component-base/version"
 )
 

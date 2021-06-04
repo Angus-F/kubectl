@@ -17,7 +17,7 @@ limitations under the License.
 package create
 
 import (
-	"k8s.io/cli-runtime/pkg/genericclioptions"
+	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
 	restclient "github.com/Angus-F/client-go/rest"
 	cmdtesting "github.com/Angus-F/kubectl/pkg/cmd/testing"
 	"testing"

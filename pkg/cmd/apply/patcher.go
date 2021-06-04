@@ -33,7 +33,7 @@ import (
 	"k8s.io/apimachinery/pkg/util/mergepatch"
 	"k8s.io/apimachinery/pkg/util/strategicpatch"
 	"k8s.io/apimachinery/pkg/util/wait"
-	"k8s.io/cli-runtime/pkg/resource"
+	"github.com/Angus-F/cli-runtime/pkg/resource"
 	oapi "k8s.io/kube-openapi/pkg/util/proto"
 	cmdutil "github.com/Angus-F/kubectl/pkg/cmd/util"
 	"github.com/Angus-F/kubectl/pkg/scheme"

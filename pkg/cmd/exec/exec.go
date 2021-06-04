@@ -19,6 +19,7 @@ package exec
 import (
 	"context"
 	"fmt"
+	"github.com/Angus-F/client-go/tools/clientcmd"
 	"io"
 	"io/ioutil"
 	"net/url"
@@ -29,8 +30,8 @@ import (
 	"github.com/spf13/cobra"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/cli-runtime/pkg/genericclioptions"
-	"k8s.io/cli-runtime/pkg/resource"
+	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
+	"github.com/Angus-F/cli-runtime/pkg/resource"
 	coreclient "github.com/Angus-F/client-go/kubernetes/typed/core/v1"
 	restclient "github.com/Angus-F/client-go/rest"
 	"github.com/Angus-F/client-go/tools/remotecommand"
@@ -97,6 +98,7 @@ func NewCmdExec(f cmdutil.Factory, streams genericclioptions.IOStreams) *cobra.C
 			cmdutil.CheckErr(options.Run())
 		},
 	}
+	cmdutil.AddClusterVarFlags(cmd, &options.ClusterName, options.ClusterName)
 	cmdutil.AddPodRunningTimeoutFlag(cmd, defaultPodExecTimeout)
 	cmdutil.AddJsonFilenameFlag(cmd.Flags(), &options.FilenameOptions.Filenames, "to use to exec into the resource")
 	// TODO support UID

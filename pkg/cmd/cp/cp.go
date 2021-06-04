@@ -32,7 +32,7 @@ import (
 	"github.com/lithammer/dedent"
 	"github.com/spf13/cobra"
 
-	"k8s.io/cli-runtime/pkg/genericclioptions"
+	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
 	"github.com/Angus-F/client-go/kubernetes"
 	restclient "github.com/Angus-F/client-go/rest"
 	"github.com/Angus-F/kubectl/pkg/cmd/exec"

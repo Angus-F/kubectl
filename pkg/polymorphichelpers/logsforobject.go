@@ -26,7 +26,7 @@ import (
 
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/runtime"
-	"k8s.io/cli-runtime/pkg/genericclioptions"
+	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
 	corev1client "github.com/Angus-F/client-go/kubernetes/typed/core/v1"
 	"github.com/Angus-F/client-go/rest"
 	"github.com/Angus-F/client-go/tools/reference"

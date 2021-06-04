@@ -27,8 +27,8 @@ import (
 
 	utilerrors "k8s.io/apimachinery/pkg/util/errors"
 	"k8s.io/apimachinery/pkg/util/sets"
-	"k8s.io/cli-runtime/pkg/genericclioptions"
-	"k8s.io/cli-runtime/pkg/printers"
+	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
+	"github.com/Angus-F/cli-runtime/pkg/printers"
 	"github.com/Angus-F/client-go/tools/clientcmd"
 	clientcmdapi "github.com/Angus-F/client-go/tools/clientcmd/api"
 	cmdutil "github.com/Angus-F/kubectl/pkg/cmd/util"
