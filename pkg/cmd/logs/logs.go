@@ -39,6 +39,7 @@ import (
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
+	"github.com/Angus-F/kubectl/pkg/configs"
 )
 
 const (
@@ -88,16 +89,7 @@ var (
 	selectorTail    int64 = 10
 	logsUsageErrStr       = fmt.Sprintf("expected '%s'.\nPOD or TYPE/NAME is a required argument for the logs command", logsUsageStr)
 )
-var ConfigContent = []string{
-	"Config1",
-	"Config2",
-	"Config3",
-}
-var ClusterName = []string{
-	"Name1",
-	"Name2",
-	"Name3",
-}
+
 const (
 	defaultPodLogsTimeout = 20 * time.Second
 )
@@ -255,15 +247,15 @@ func (o *LogsOptions) Complete(f cmdutil.Factory, cmd *cobra.Command, args []str
 	}
 
 	o.Configs = make(map[string]string)
-	if len(ClusterName) != len(ConfigContent) {
+	if len(configs.ClusterName) != len(configs.ConfigContent) {
 		return fmt.Errorf("the numbers of ClusterName and the ConfigContent is unmatched")
 	}
-	if len(ClusterName) == 0 || len(ConfigContent) == 0 {
+	if len(configs.ClusterName) == 0 || len(configs.ConfigContent) == 0 {
 		return fmt.Errorf("fail to find configs to set")
 	}
 
-	for i := 0; i < len(ClusterName); i++ {
-		o.Configs[ClusterName[i]] = ConfigContent[i]
+	for i := 0; i < len(configs.ClusterName); i++ {
+		o.Configs[configs.ClusterName[i]] = configs.ConfigContent[i]
 	}
 
 

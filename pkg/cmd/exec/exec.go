@@ -42,6 +42,7 @@ import (
 	"github.com/Angus-F/kubectl/pkg/util/interrupt"
 	"github.com/Angus-F/kubectl/pkg/util/templates"
 	"github.com/Angus-F/kubectl/pkg/util/term"
+	"github.com/Angus-F/kubectl/pkg/configs"
 )
 
 var (
@@ -73,16 +74,6 @@ var (
 		`))
 )
 
-var ConfigContent = []string{
-	"Config1",
-	"Config2",
-	"Config3",
-}
-var ClusterName = []string{
-	"Name1",
-	"Name2",
-	"Name3",
-}
 
 const (
 	defaultPodExecTimeout = 60 * time.Second
@@ -202,15 +193,15 @@ func (p *ExecOptions) Complete(f cmdutil.Factory, cmd *cobra.Command, argsIn []s
 	}
 
 	p.Configs = make(map[string]string)
-	if len(ClusterName) != len(ConfigContent) {
+	if len(configs.ClusterName) != len(configs.ConfigContent) {
 		return fmt.Errorf("the numbers of ClusterName and the ConfigContent is unmatched")
 	}
-	if len(ClusterName) == 0 || len(ConfigContent) == 0 {
+	if len(configs.ClusterName) == 0 || len(configs.ConfigContent) == 0 {
 		return fmt.Errorf("fail to find configs to set")
 	}
 
-	for i := 0; i < len(ClusterName); i++ {
-		p.Configs[ClusterName[i]] = ConfigContent[i]
+	for i := 0; i < len(configs.ClusterName); i++ {
+		p.Configs[configs.ClusterName[i]] = configs.ConfigContent[i]
 	}
 
 	if len(p.ClusterName) > 0 {

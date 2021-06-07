@@ -40,7 +40,7 @@ import (
 	cmdutil "github.com/Angus-F/kubectl/pkg/cmd/util"
 	"github.com/Angus-F/kubectl/pkg/util/i18n"
 	"github.com/Angus-F/kubectl/pkg/util/templates"
-
+    "github.com/Angus-F/kubectl/pkg/configs"
 )
 
 var (
@@ -78,16 +78,6 @@ var (
 		/file/path for a local file`)
 )
 
-var ConfigContent = []string{
-	"Config1",
-	"Config2",
-	"Config3",
-}
-var ClusterName = []string{
-	"Name1",
-	"Name2",
-	"Name3",
-}
 // CopyOptions have the data required to perform the copy operation
 type CopyOptions struct {
 	Container  string
@@ -181,15 +171,15 @@ func (o *CopyOptions) Complete(f cmdutil.Factory, cmd *cobra.Command) error {
 		o.ExecParentCmdName = cmd.Parent().CommandPath()
 	}
 	o.Configs = make(map[string]string)
-	if len(ClusterName) != len(ConfigContent) {
+	if len(configs.ClusterName) != len(configs.ConfigContent) {
 		return fmt.Errorf("the numbers of ClusterName and the ConfigContent is unmatched")
 	}
-	if len(ClusterName) == 0 || len(ConfigContent) == 0 {
+	if len(configs.ClusterName) == 0 || len(configs.ConfigContent) == 0 {
 		return fmt.Errorf("fail to find configs to set")
 	}
 
-	for i := 0; i < len(ClusterName); i++ {
-		o.Configs[ClusterName[i]] = ConfigContent[i]
+	for i := 0; i < len(configs.ClusterName); i++ {
+		o.Configs[configs.ClusterName[i]] = configs.ConfigContent[i]
 	}
 
 	if len(o.ClusterName) > 0 {
