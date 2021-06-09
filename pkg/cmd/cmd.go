@@ -30,53 +30,17 @@ import (
 	"github.com/spf13/cobra"
 
 	"github.com/Angus-F/client-go/rest"
-	"github.com/Angus-F/client-go/tools/clientcmd"
-	cliflag "k8s.io/component-base/cli/flag"
-	"github.com/Angus-F/kubectl/pkg/cmd/annotate"
-	"github.com/Angus-F/kubectl/pkg/cmd/apiresources"
-	"github.com/Angus-F/kubectl/pkg/cmd/apply"
-	"github.com/Angus-F/kubectl/pkg/cmd/attach"
-	"github.com/Angus-F/kubectl/pkg/cmd/auth"
-	"github.com/Angus-F/kubectl/pkg/cmd/autoscale"
-	"github.com/Angus-F/kubectl/pkg/cmd/certificates"
-	"github.com/Angus-F/kubectl/pkg/cmd/clusterinfo"
-	"github.com/Angus-F/kubectl/pkg/cmd/completion"
-	cmdconfig "github.com/Angus-F/kubectl/pkg/cmd/config"
 	"github.com/Angus-F/kubectl/pkg/cmd/cp"
-	"github.com/Angus-F/kubectl/pkg/cmd/create"
-	"github.com/Angus-F/kubectl/pkg/cmd/debug"
-	"github.com/Angus-F/kubectl/pkg/cmd/delete"
-	"github.com/Angus-F/kubectl/pkg/cmd/describe"
-	"github.com/Angus-F/kubectl/pkg/cmd/diff"
-	"github.com/Angus-F/kubectl/pkg/cmd/drain"
-	"github.com/Angus-F/kubectl/pkg/cmd/edit"
 	cmdexec "github.com/Angus-F/kubectl/pkg/cmd/exec"
-	"github.com/Angus-F/kubectl/pkg/cmd/explain"
-	"github.com/Angus-F/kubectl/pkg/cmd/expose"
-	"github.com/Angus-F/kubectl/pkg/cmd/get"
-	"github.com/Angus-F/kubectl/pkg/cmd/label"
 	"github.com/Angus-F/kubectl/pkg/cmd/logs"
-	"github.com/Angus-F/kubectl/pkg/cmd/options"
-	"github.com/Angus-F/kubectl/pkg/cmd/patch"
 	"github.com/Angus-F/kubectl/pkg/cmd/plugin"
-	"github.com/Angus-F/kubectl/pkg/cmd/portforward"
-	"github.com/Angus-F/kubectl/pkg/cmd/proxy"
-	"github.com/Angus-F/kubectl/pkg/cmd/replace"
-	"github.com/Angus-F/kubectl/pkg/cmd/rollout"
-	"github.com/Angus-F/kubectl/pkg/cmd/run"
-	"github.com/Angus-F/kubectl/pkg/cmd/scale"
-	"github.com/Angus-F/kubectl/pkg/cmd/set"
-	"github.com/Angus-F/kubectl/pkg/cmd/taint"
-	"github.com/Angus-F/kubectl/pkg/cmd/top"
 	cmdutil "github.com/Angus-F/kubectl/pkg/cmd/util"
-	"github.com/Angus-F/kubectl/pkg/cmd/version"
-	"github.com/Angus-F/kubectl/pkg/cmd/wait"
 	"github.com/Angus-F/kubectl/pkg/util/i18n"
 	"github.com/Angus-F/kubectl/pkg/util/templates"
 	"github.com/Angus-F/kubectl/pkg/util/term"
+	cliflag "k8s.io/component-base/cli/flag"
 
 	"github.com/Angus-F/cli-runtime/pkg/genericclioptions"
-	"github.com/Angus-F/kubectl/pkg/cmd/kustomize"
 )
 
 const (
@@ -474,13 +438,12 @@ func NewKubectlCommand(in io.Reader, out, err io.Writer) *cobra.Command {
 	warningsAsErrors := false
 	// Parent command to which all subcommands are added.
 	cmds := &cobra.Command{
-		Use:   "kubectl",
+		Use:   "kesctl",
 		Short: i18n.T("kubectl controls the Kubernetes cluster manager"),
 		Long: templates.LongDesc(`
-      kubectl controls the Kubernetes cluster manager.
-
-      Find more information at:
-            https://kubernetes.io/docs/reference/kubectl/overview/`),
+      kesctl controls the Kubernetes cluster manager only for 'exec', 'cp' and 'logs', 
+      and this version need user to choose the specific cluster by --clusterName|-C, 
+      otherwise it may cause error.`),
 		Run: runHelp,
 		// Hook before and after Run initialize and write profiles to disk,
 		// respectively.
@@ -544,11 +507,15 @@ func NewKubectlCommand(in io.Reader, out, err io.Writer) *cobra.Command {
 
 	// Proxy command is incompatible with CommandHeaderRoundTripper, so
 	// clear the WrapConfigFn before running proxy command.
+	/**
 	proxyCmd := proxy.NewCmdProxy(f, ioStreams)
 	proxyCmd.PreRun = func(cmd *cobra.Command, args []string) {
 		kubeConfigFlags.WrapConfigFn = nil
 	}
+
+	 */
 	groups := templates.CommandGroups{
+		/**
 		{
 			Message: "Basic Commands (Beginner):",
 			Commands: []*cobra.Command{
@@ -587,20 +554,23 @@ func NewKubectlCommand(in io.Reader, out, err io.Writer) *cobra.Command {
 				taint.NewCmdTaint(f, ioStreams),
 			},
 		},
+
+		 */
 		{
 			Message: "Troubleshooting and Debugging Commands:",
 			Commands: []*cobra.Command{
-				describe.NewCmdDescribe("kubectl", f, ioStreams),
+				//describe.NewCmdDescribe("kubectl", f, ioStreams),
 				logs.NewCmdLogs(f, ioStreams),
-				attach.NewCmdAttach(f, ioStreams),
+				//attach.NewCmdAttach(f, ioStreams),
 				cmdexec.NewCmdExec(f, ioStreams),
-				portforward.NewCmdPortForward(f, ioStreams),
-				proxyCmd,
+				//portforward.NewCmdPortForward(f, ioStreams),
+				//proxyCmd,
 				cp.NewCmdCp(f, ioStreams),
-				auth.NewCmdAuth(f, ioStreams),
-				debug.NewCmdDebug(f, ioStreams),
+				//auth.NewCmdAuth(f, ioStreams),
+				//debug.NewCmdDebug(f, ioStreams),
 			},
 		},
+		/**
 		{
 			Message: "Advanced Commands:",
 			Commands: []*cobra.Command{
@@ -620,16 +590,21 @@ func NewKubectlCommand(in io.Reader, out, err io.Writer) *cobra.Command {
 				completion.NewCmdCompletion(ioStreams.Out, ""),
 			},
 		},
+
+		 */
 	}
 	groups.Add(cmds)
 
 	filters := []string{"options"}
 
 	// Hide the "alpha" subcommand if there are no alpha commands in this build.
+	/**
 	alpha := NewCmdAlpha(f, ioStreams)
 	if !alpha.HasSubCommands() {
 		filters = append(filters, alpha.Name())
 	}
+
+	 */
 
 	templates.ActsAsRootCommand(cmds, filters, groups...)
 
@@ -644,7 +619,7 @@ func NewKubectlCommand(in io.Reader, out, err io.Writer) *cobra.Command {
 			)
 		}
 	}
-
+/**
 	cmds.AddCommand(alpha)
 	cmds.AddCommand(cmdconfig.NewCmdConfig(f, clientcmd.NewDefaultPathOptions(), ioStreams))
 	cmds.AddCommand(plugin.NewCmdPlugin(f, ioStreams))
@@ -652,6 +627,8 @@ func NewKubectlCommand(in io.Reader, out, err io.Writer) *cobra.Command {
 	cmds.AddCommand(apiresources.NewCmdAPIVersions(f, ioStreams))
 	cmds.AddCommand(apiresources.NewCmdAPIResources(f, ioStreams))
 	cmds.AddCommand(options.NewCmdOptions(ioStreams.Out))
+
+ */
 
 	return cmds
 }
