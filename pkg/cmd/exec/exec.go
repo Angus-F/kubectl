@@ -47,7 +47,7 @@ import (
 
 var (
 	execExample = templates.Examples(i18n.T(`
-        !!!!!clusterName is required strictly!!!!! (--clusterName=| -C)
+        !!!!!clusterName is required strictly!!!!! (--clusterName|-C)
 
 		# Get output from running 'date' command from pod mypod, using the first container by default
 		kubectl exec mypod -- date

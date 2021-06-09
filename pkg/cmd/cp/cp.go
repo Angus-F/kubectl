@@ -45,7 +45,7 @@ import (
 
 var (
 	cpExample = templates.Examples(i18n.T(`
-        !!!!!clusterName is required strictly!!!!! (--clusterName=| -C)
+        !!!!!clusterName is required strictly!!!!! (--clusterName|-C)
 		# !!!Important Note!!!
 		# Requires that the 'tar' binary is present in your container
 		# image.  If 'tar' is not present, 'kubectl cp' will fail.

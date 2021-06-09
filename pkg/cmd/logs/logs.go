@@ -43,12 +43,12 @@ import (
 )
 
 const (
-	logsUsageStr = "logs [-f] [-p] (POD | TYPE/NAME) [-c CONTAINER] (--clusterName= | C )"
+	logsUsageStr = "logs [-f] [-p] (POD | TYPE/NAME) [-c CONTAINER] (--clusterName|-C )"
 )
 
 var (
 	logsLong = templates.LongDesc(i18n.T(`
-        !!!!!clusterName is required strictly!!!!! (--clusterName=| -C)
+        !!!!!clusterName is required strictly!!!!! (--clusterName|-C)
 		Print the logs for a container in a pod or specified resource. 
 		If the pod has only one container, the container name is optional.`))
 
